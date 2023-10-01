@@ -20,7 +20,7 @@ public class IntroGUI extends JFrame{
 	 * 
 	 */
 	
-//--------------------------------------------------------------------------------------------------------------------------------//
+//---------------------------------------------------------------------------------------------------------------------------------//
 
 	
 //GLOBAL VARIABLES	
@@ -34,7 +34,7 @@ public class IntroGUI extends JFrame{
 	//This variable will hold the user type selected by the user (vehicle owner or task owner) and it will affect the login screen or register screen that they see next
 	String userType;
 	
-//--------------------------------------------------------------------------------------------------------------------------------//
+//---------------------------------------------------------------------------------------------------------------------------------//
 	
 
 //This is our main frame which is the first thing that will open. 	
