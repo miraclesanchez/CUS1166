@@ -11,11 +11,6 @@ public class JobOwnerView extends GuiManager{
 	 * Date: September 27th 2023
 	 * This program sets up the main user interface for job owners
 	*/
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
 	public JobOwnerView() {
 		/*TODO: 
@@ -41,9 +36,10 @@ public class JobOwnerView extends GuiManager{
 		//adding buttons
 		JButton submit_job = AddButton(main_panel, "Submit job information");
 		JButton view_sub = AddButton(main_panel, "View previous job submissions");
-		//JButton login_button = AddButton(main_panel, "Back to login");
+		JButton login_button = AddButton(main_panel, "Back to login");
 		
 		SetActionListener(main_frame, "submit job", submit_job);
 		SetActionListener(main_frame, "view submissions", view_sub);
+		SetActionListener(main_frame, "login", login_button);
 	}
 }

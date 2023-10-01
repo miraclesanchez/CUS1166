@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class ViewSubmissions extends JobOwnerView{
+public class ViewSubmissions extends GuiManager{
 	/* Project: Vehicular Cloud
 	 * Class: ViewSubmissions.class
 	 * Author: Yvonne Huang
