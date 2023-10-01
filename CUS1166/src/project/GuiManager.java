@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 public class GuiManager{
@@ -24,9 +25,10 @@ public class GuiManager{
 	
 	// ---------------------------------------------------------------
 	// This method creates a a new frame
-	public JFrame CreateFrame(String title) {
+	public static JFrame CreateFrame(String title) {
 		JFrame frame = new JFrame();
 		frame.setPreferredSize(new Dimension(400,300));
+		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle(title);
 		
@@ -35,7 +37,7 @@ public class GuiManager{
 	
 	// ---------------------------------------------------------------
 	// This method creates a a new panel
-	public JPanel CreatePanel(JFrame frame, int[] dimensions, int[] grid_layout) {
+	public static JPanel CreatePanel(JFrame frame, int[] dimensions, int[] grid_layout) {
 		JPanel panel = new JPanel();
 		int top_border = dimensions[0];
 		int bottom_border = dimensions[1];
@@ -53,7 +55,7 @@ public class GuiManager{
 	
 	// ---------------------------------------------------------------
 	// This method creates a text label with or without images
-	public JLabel CreateTextLabel(String text, String hasImage, float text_size) {
+	public static JLabel CreateTextLabel(String text, String hasImage, float text_size) {
 		JLabel label;
 		if (hasImage.equals("No image")) {
 			label = new JLabel(text,
@@ -72,10 +74,29 @@ public class GuiManager{
 	}
 	
 	// ---------------------------------------------------------------
+	// This method creates a text field
+	public static JTextField CreateTextField(float text_size) {
+		JTextField text_box;
+		text_box = new JTextField(
+					SwingConstants.CENTER);	
+		
+		text_box.setFont(text_box.getFont().deriveFont(text_size));
+		
+		return text_box;
+	}
+	
+	// ---------------------------------------------------------------
 	// This method adds a text label to a panel
-	public void AddTextLabel(JPanel panel, JLabel label, int width, int height) {
+	public static void AddTextLabel(JPanel panel, JLabel label, int width, int height) {
 		panel.add(label);
 		label.setSize(width, height);
+	}
+	
+	// ---------------------------------------------------------------
+	// This method adds a text field to a panel
+	public static void AddTextField(JPanel panel, JTextField input_box, int width, int height) {
+		panel.add(input_box);
+		input_box.setSize(width, height);
 	}
 	
 	// ---------------------------------------------------------------
@@ -86,7 +107,7 @@ public class GuiManager{
 		return button;
 	}
 	
-	public void SetActionListener(JFrame current_frame, String button_type, JButton button) {
+	public static void SetActionListener(JFrame current_frame, String button_type, JButton button) {
 		button.addActionListener(
 				new ActionListener() {
 					@Override
@@ -94,8 +115,7 @@ public class GuiManager{
 						if (e.getSource().equals(button)) {
 							current_frame.dispose(); //deletes the current frame once button is pressed
 							
-							//switch windows (add your buttons if needed)
-							//don't know if there's a better way of doing this LOL
+							//switch windows
 							switch(button_type.toLowerCase()) {
 								case "submit job":
 									SubmitJob submit_view = new SubmitJob();
@@ -106,6 +126,8 @@ public class GuiManager{
 								case "job menu":
 									JobOwnerView job_view = new JobOwnerView();
 									break;
+								case "login":
+									IntroGUI login_view = new IntroGUI();
 							}	
 						}
 					}

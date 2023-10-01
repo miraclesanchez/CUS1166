@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import project.GuiManager;
+
 public class IntroGUI extends JFrame{
 	
 	/* Project: Vehicular Cloud
@@ -179,16 +181,13 @@ public class IntroGUI extends JFrame{
 				new IntroGUI();
 			}
 		});
+		
+		//Adding this just for testing purposes for my GUI
+		GuiManager.SetActionListener(loginFrame, "job menu", loginButton);
 	
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
 //--------------------------------------------------------------------------------------------------------------------------------//
-
-	
-//Main method that will be run 	
-	public static void main (String []args) {
-		new IntroGUI();
-	}
 }
