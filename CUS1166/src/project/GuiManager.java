@@ -1,4 +1,7 @@
+package project;
+
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class GuiManager {
+public class GuiManager{
 	/* Project: Vehicular Cloud
 	 * Class: GuiManager.class
 	 * Author: Yvonne Huang
@@ -23,9 +26,9 @@ public class GuiManager {
 	// This method creates a a new frame
 	public JFrame CreateFrame(String title) {
 		JFrame frame = new JFrame();
+		frame.setPreferredSize(new Dimension(400,300));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle(title);
-		frame.pack();
 		
 		return frame;
 	}
@@ -42,7 +45,8 @@ public class GuiManager {
 		panel.setBorder(BorderFactory.createEmptyBorder(top_border, left_border, bottom_border, right_border));
 		panel.setLayout(new GridLayout(grid_layout[0],grid_layout[1]));
 		
-		frame.add(panel, BorderLayout.CENTER);
+		frame.getContentPane().add(panel);
+		frame.pack();
 		
 		return panel;
 	}

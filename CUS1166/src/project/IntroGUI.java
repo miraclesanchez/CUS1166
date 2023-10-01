@@ -52,7 +52,7 @@ public class IntroGUI extends JFrame{
 		lblNewLabel.setBounds(143, 30, 61, 16);
 		getContentPane().add(lblNewLabel);
 		
-		ImageIcon img = new ImageIcon(this.getClass().getResource("/car.png"));
+		ImageIcon img = new ImageIcon("images/car.png"); //i changed this so that it works with the images folder -yvonne
 		JLabel imageLabel = new JLabel(img);
 		imageLabel.setVisible(true);
 		imageLabel.setBounds(204, 16, 61, 52);

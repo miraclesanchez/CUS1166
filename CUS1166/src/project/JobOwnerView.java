@@ -1,3 +1,4 @@
+package project;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,6 +12,11 @@ public class JobOwnerView extends GuiManager{
 	 * This program sets up the main user interface for job owners
 	*/
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public JobOwnerView() {
 		/*TODO: 
 		 * add back button for login interface
