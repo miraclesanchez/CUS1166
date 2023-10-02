@@ -1,5 +1,6 @@
 package project;
 
-public class VehicleOwner {
+public class VehicleOwner extends User {
+	
 
 }

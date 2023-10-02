@@ -14,7 +14,7 @@ public class User {
 	}
 	
 	public String getPassword() {
-		return this.password();
+		return this.password;
 	}
 	
 	public void setPassword(String password) {
