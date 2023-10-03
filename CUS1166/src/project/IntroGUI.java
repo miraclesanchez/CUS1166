@@ -145,7 +145,7 @@ public class IntroGUI extends JFrame{
 			}
 		});
 
-//Once selecting their role, the frame will switch to the proper frame with their role indicated in the title		
+//Once selecting their role, the frame will switch to the proper frame with their rile indicated in the title		
 		vehicleOwnerBut.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		    if(vehicleOwnerBut.isSelected()&&userType.equalsIgnoreCase("login")) {
