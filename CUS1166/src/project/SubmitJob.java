@@ -1,7 +1,11 @@
 package project;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -39,6 +43,26 @@ public class SubmitJob extends GuiManager{
 		
 		JButton submit_button = AddButton(submit_panel, "Submit job information"); //save information to file
 		JButton menu_button = AddButton(submit_panel, "Back to menu");
+		
+		//Method to write text in input fields to a file.
+		submit_button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Only writes if all text fields contain an input
+				if (
+						(job_duration.getText().equals("")) || 
+						(job_deadline.getText().equals(""))
+					) {
+					JOptionPane.showMessageDialog(null, "Required Field Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+				}
+				//Clears text fields and displays message letting user know that they registered their vehicle
+				else {
+					JOptionPane.showMessageDialog(null, "Job Successfully submitted!", "Success!", JOptionPane.PLAIN_MESSAGE);
+					//System.out.println(job_duration.getText());
+					//TO GET ADDED:
+					//Write input from text fields to file
+				}
+			}
+		});
 		
 		SetActionListener(submit_frame, "job menu", menu_button);
 	}
