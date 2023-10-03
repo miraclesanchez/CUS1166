@@ -191,6 +191,6 @@ public class RegisterVehicleView extends JFrame {
 		exit_button.setBounds(323, 290, 89, 23);
 		contentPane.add(exit_button);
 		//Returns to vehicle owner menu
-		GuiManager.SetActionListener(frame, "owner menu", exit_button);
+		GuiManager.SwitchWindow(frame, "owner menu", exit_button);
 	}
 }
