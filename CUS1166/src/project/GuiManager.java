@@ -107,7 +107,7 @@ public class GuiManager{
 		return button;
 	}
 	
-	public static void SetActionListener(JFrame current_frame, String button_type, JButton button) {
+	public static void SwitchWindow(JFrame current_frame, String button_type, JButton button) {
 		button.addActionListener(
 				new ActionListener() {
 					@Override

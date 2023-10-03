@@ -38,8 +38,8 @@ public class JobOwnerView extends GuiManager{
 		JButton view_sub = AddButton(main_panel, "View previous job submissions");
 		JButton login_button = AddButton(main_panel, "Back to login");
 		
-		SetActionListener(main_frame, "submit job", submit_job);
-		SetActionListener(main_frame, "view submissions", view_sub);
-		SetActionListener(main_frame, "login", login_button);
+		SwitchWindow(main_frame, "submit job", submit_job);
+		SwitchWindow(main_frame, "view submissions", view_sub);
+		SwitchWindow(main_frame, "login", login_button);
 	}
 }

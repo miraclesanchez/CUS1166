@@ -64,6 +64,6 @@ public class SubmitJob extends GuiManager{
 			}
 		});
 		
-		SetActionListener(submit_frame, "job menu", menu_button);
+		SwitchWindow(submit_frame, "job menu", menu_button);
 	}
 }

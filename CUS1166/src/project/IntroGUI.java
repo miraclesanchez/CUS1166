@@ -183,7 +183,7 @@ public class IntroGUI extends JFrame{
 		});
 		
 		//Adding this just for testing purposes for my GUI
-		GuiManager.SetActionListener(loginFrame, "job menu", loginButton);
+		GuiManager.SwitchWindow(loginFrame, "job menu", loginButton);
 	
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);

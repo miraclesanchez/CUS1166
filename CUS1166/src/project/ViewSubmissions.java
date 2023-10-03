@@ -24,6 +24,6 @@ public class ViewSubmissions extends GuiManager{
 		view_subs_frame.setVisible(true);
 		
 		JButton menu_button = AddButton(view_subs_panel, "Back to menu");
-		SetActionListener(view_subs_frame, "job menu", menu_button);
+		SwitchWindow(view_subs_frame, "job menu", menu_button);
 	}
 }
