@@ -132,6 +132,12 @@ public class GuiManager{
 								case "register vehicle":
 									RegisterVehicleView vreg_view = new RegisterVehicleView();
 									break;
+								case "vehicle history":
+									VehicleHistoryView vhistory_view = new VehicleHistoryView();
+									break;
+								case "owned vehicles":
+									OwnedVehiclesView owned_view = new OwnedVehiclesView();
+									break;
 								case "login":
 									IntroGUI login_view = new IntroGUI();
 							}	
