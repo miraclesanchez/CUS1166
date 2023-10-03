@@ -126,6 +126,12 @@ public class GuiManager{
 								case "job menu":
 									JobOwnerView job_view = new JobOwnerView();
 									break;
+								case "owner menu":
+									VehicleOwnerView owner_view = new VehicleOwnerView();
+									break;
+								case "register vehicle":
+									RegisterVehicleView vreg_view = new RegisterVehicleView();
+									break;
 								case "login":
 									IntroGUI login_view = new IntroGUI();
 							}	
