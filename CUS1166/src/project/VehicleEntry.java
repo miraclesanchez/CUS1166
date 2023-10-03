@@ -36,12 +36,14 @@ public class VehicleEntry {
 	
 	public void saveVehicleHistory(String filename) {
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename, true))) {
-			String data = String.format("%s, %s, %d, %s, %s\n", vehicle.getModel(), vehicle.getMake(), vehicle.getYear(), sdf.format(entryDate), sdf.format(exitDate));
+			String data = String.format("%d, %s, %s, %d, %s, %s\n", vehicle.getVehicleId(),vehicle.getModel(), vehicle.getMake(), vehicle.getYear(), sdf.format(entryDate), sdf.format(exitDate));
 			bw.write(data);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	// getUserEntriesFromCSV
 	
 	public static List<VehicleEntry> getAllEntriesFromCSV(String filename) {
 		List<VehicleEntry> entries = new ArrayList<>();

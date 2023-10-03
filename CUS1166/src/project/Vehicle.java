@@ -12,11 +12,19 @@ public class Vehicle {
 	private String model;
 	private String make;
 	private int year;	
+    private int vehicleId;
+    private static int idCounter = 0;
+
 	
 	public Vehicle(String model, String make, int year) {
 		this.model = model;
 		this.make = make;
 		this.year = year;
+		this.vehicleId = ++idCounter;
+	}
+	
+	public int getVehicleId() {
+		return this.vehicleId;
 	}
 	
 	public String getModel() {
@@ -47,12 +55,13 @@ public class Vehicle {
 	// Add vehicle to CSV
 	public void saveVehicle(String filename) {
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename, true))) {
-			String data = String.format("%s, %s, %d\n", this.model, this.make, this.year);
+			String data = String.format("%d, %s, %s, %d\n", this.vehicleId, this.model, this.make, this.year);
 			bw.write(data);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+	
 	
 	// Get vehicles
 	public static List<Vehicle> getAllVehiclesFromCSV(String filename) {
