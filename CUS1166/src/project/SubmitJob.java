@@ -23,6 +23,8 @@ public class SubmitJob extends GuiManager{
 		int[] panel_layout = {7,1};
 
 		JFrame submit_frame = CreateFrame("Submit Job Information");
+		submit_frame.setSize(400, 300);
+		submit_frame.setLocationRelativeTo(null);
 		JPanel submit_panel = CreatePanel(submit_frame, panel_dimensions, panel_layout);
 		
 		JLabel enter_label = CreateTextLabel("Submit New Job:", "No image", 20.0f);

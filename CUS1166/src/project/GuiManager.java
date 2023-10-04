@@ -1,6 +1,5 @@
 package project;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -12,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -127,10 +127,37 @@ public class GuiManager{
 									JobOwnerView job_view = new JobOwnerView();
 									break;
 								case "owner menu":
-									VehicleOwnerView owner_view = new VehicleOwnerView();
+									VehicleOwnerView owner_view=new VehicleOwnerView();
 									break;
 								case "register vehicle":
-									RegisterVehicleView vreg_view = new RegisterVehicleView();
+									RegisterVehicleView vreg_view =new RegisterVehicleView();
+								case "login":
+									IntroGUI login_view = new IntroGUI();
+							}	
+						}
+					}
+				});
+	}
+	
+	//Added this to work for radio buttons as well - Miracle
+	public static void SwitchWindow(JFrame current_frame, String button_type, JRadioButton button) {
+		button.addActionListener(
+				new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						if (e.getSource().equals(button)) {
+							current_frame.dispose(); //deletes the current frame once button is pressed
+							
+							//switch windows
+							switch(button_type.toLowerCase()) {
+								case "submit job":
+									SubmitJob submit_view = new SubmitJob();
+									break;
+								case "view submissions":
+									ViewSubmissions view_subs = new ViewSubmissions();
+									break;
+								case "job menu":
+									JobOwnerView job_view = new JobOwnerView();
 									break;
 								case "login":
 									IntroGUI login_view = new IntroGUI();
