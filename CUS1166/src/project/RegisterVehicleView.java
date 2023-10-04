@@ -19,6 +19,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+
 public class RegisterVehicleView extends JFrame {
 	/* Project: Vehicular Cloud
 	 * Class: RegisterVehicleView.class
@@ -35,6 +36,7 @@ public class RegisterVehicleView extends JFrame {
 	private JTextField plate;
 	private JTextField model;
 	private JTextField year;
+	private JTextField residency;
 
 	public RegisterVehicleView() {
 		
@@ -167,12 +169,22 @@ public class RegisterVehicleView extends JFrame {
 						(make.getText().equals("")) ||
 						(model.getText().equals("")) ||
 						(year.getText().equals("")) ||
-						(plate.getText().equals(""))
+						(plate.getText().equals("")) ||
+						(residency.getText().equals(""))
 					) {
 					JOptionPane.showMessageDialog(null, "Required Field Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
 				}
 				//Clears text fields and displays message letting user know that they registered their vehicle
 				else {
+					String first_name_text = first_name.getText();
+					String last_name_text = last_name.getText();
+					String make_text = make.getText();
+					String model_text = model.getText();
+					String year_text = year.getText();
+					String plate_text = plate.getText();
+					String residency_text = residency.getText();
+					Vehicle vehicle = new Vehicle(first_name_text, last_name_text, make_text, model_text, year_text, plate_text, residency_text);
+					vehicle.saveVehicle("VehicleRegistry");
 					JOptionPane.showMessageDialog(null, "Vehicle Successfully Registered", "Success!", JOptionPane.PLAIN_MESSAGE);
 					first_name.setText("");
 					last_name.setText("");
@@ -180,18 +192,30 @@ public class RegisterVehicleView extends JFrame {
 					make.setText("");
 					year.setText("YYYY");
 					plate.setText("");
+					residency.setText("");
 					//TO GET ADDED:
 					//Write input from text fields to file
 				}
 			}
 		});
-		register_button.setBounds(72, 290, 89, 23);
+		register_button.setBounds(72, 327, 89, 23);
 		contentPane.add(register_button);
 		
 		JButton exit_button = new JButton("Exit");
-		exit_button.setBounds(323, 290, 89, 23);
+		exit_button.setBounds(333, 327, 89, 23);
 		contentPane.add(exit_button);
 		//Returns to vehicle owner menu
 		GuiManager.SwitchWindow(frame, "owner menu", exit_button);
+		
+		residency = new JTextField();
+		residency.setColumns(10);
+		residency.setBounds(20, 285, 89, 20);
+		contentPane.add(residency);
+		
+		JLabel residency_label = new JLabel("Expected Residency (hours)");
+		residency_label.setHorizontalAlignment(SwingConstants.CENTER);
+		residency_label.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		residency_label.setBounds(20, 259, 126, 23);
+		contentPane.add(residency_label);
 	}
 }
