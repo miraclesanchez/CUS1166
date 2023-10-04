@@ -42,6 +42,7 @@ public class RegisterVehicleView extends JFrame {
 		
 		JFrame frame = new JFrame();
 		frame.setPreferredSize(new Dimension(500, 400));
+		frame.setSize(400, 300);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Register Vehicle");

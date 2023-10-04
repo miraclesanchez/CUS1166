@@ -24,6 +24,8 @@ public class VehicleOwnerView extends GuiManager{
 		int[] panel_layout = {6,1};
 		
 		JFrame main_frame = CreateFrame("Vehicle Owner View");
+		main_frame.setSize(400, 300);
+		main_frame.setLocationRelativeTo(null);
 		JPanel main_panel = CreatePanel(main_frame, panel_dimensions, panel_layout);
 		main_frame.setVisible(true);
 

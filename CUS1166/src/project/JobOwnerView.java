@@ -13,16 +13,13 @@ public class JobOwnerView extends GuiManager{
 	*/
 
 	public JobOwnerView() {
-		/*TODO: 
-		 * add back button for login interface
-		 * bug with two windows appearing at the same time
-		 */
-		
 		// variables to set the size of the user interface panels
 		int[] panel_dimensions = {10,10,10,10};
 		int[] panel_layout = {5,1};
 		
 		JFrame main_frame = CreateFrame("Job Owner View");
+		main_frame.setSize(400, 300);
+		main_frame.setLocationRelativeTo(null);
 		JPanel main_panel = CreatePanel(main_frame, panel_dimensions, panel_layout);
 		main_frame.setVisible(true);
 
