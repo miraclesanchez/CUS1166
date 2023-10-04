@@ -191,6 +191,7 @@ public class RegisterVehicleView extends JFrame {
 					make.setText("");
 					year.setText("YYYY");
 					plate.setText("");
+					residency.setText("");
 					//TO GET ADDED:
 					//Write input from text fields to file
 				}
