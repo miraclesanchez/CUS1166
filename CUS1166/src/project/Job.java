@@ -1,4 +1,6 @@
+
 import java.time.LocalDate;
+
 /*Project: Vehicular Cloud
  *Class: Job.java
  *By: Maria Andia 
@@ -26,13 +28,13 @@ public class Job {
     }
 
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
+//    public String getStatus() {
+//        return status;
+//    }
+//
+//    public void setStatus(String status) {
+//        this.status = status;
+//    }
 
 
     public LocalDate getDate() {
@@ -43,11 +45,11 @@ public class Job {
         this.submissionDate = submissionDate;
     }
 
-    public Tuple getId() {
-        return id;
-    }
-
-    public void setId(Tuple id) {
-        this.id = id;
-    }
+//    public Tuple getId() {
+//        return id;
+//    }
+//
+//    public void setId(Tuple id) {
+//        this.id = id;
+//    }
 }
