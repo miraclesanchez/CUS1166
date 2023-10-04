@@ -13,11 +13,6 @@ public class JobOwnerView extends GuiManager{
 	*/
 
 	public JobOwnerView() {
-		/*TODO: 
-		 * add back button for login interface
-		 * bug with two windows appearing at the same time
-		 */
-		
 		// variables to set the size of the user interface panels
 		int[] panel_dimensions = {10,10,10,10};
 		int[] panel_layout = {5,1};
