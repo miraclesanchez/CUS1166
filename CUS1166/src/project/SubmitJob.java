@@ -28,8 +28,8 @@ public class SubmitJob extends GuiManager{
 		JPanel submit_panel = CreatePanel(submit_frame, panel_dimensions, panel_layout);
 		
 		JLabel enter_label = CreateTextLabel("Submit New Job:", "No image", 20.0f);
-		JLabel duration_label = CreateTextLabel("Enter job duration:", "No image", 10.0f);
-		JLabel deadline_label = CreateTextLabel("Enter job deadline:", "No image", 10.0f);
+		JLabel duration_label = CreateTextLabel("Enter job duration (hours):", "No image", 10.0f);
+		JLabel deadline_label = CreateTextLabel("Enter job deadline (mm/dd/yyyy):", "No image", 10.0f);
 		
 		JTextField job_duration = CreateTextField(20.0f);
 		JTextField job_deadline = CreateTextField(20.0f);
@@ -58,7 +58,13 @@ public class SubmitJob extends GuiManager{
 				}
 				//Clears text fields and displays message letting user know that they registered their vehicle
 				else {
+					String jobDur = job_duration.getText();
+					String jobDead = job_deadline.getText();
+					Job newJob = new Job(jobDur, jobDead);
+					newJob.saveJob("JobSubmissions");
 					JOptionPane.showMessageDialog(null, "Job Successfully submitted!", "Success!", JOptionPane.PLAIN_MESSAGE);
+					job_duration.setText("");
+					job_deadline.setText("");
 					//System.out.println(job_duration.getText());
 					//TO GET ADDED:
 					//Write input from text fields to file
