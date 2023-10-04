@@ -36,10 +36,11 @@ public class VehicleOwnerView extends GuiManager{
 		JButton signout_button = AddButton(main_panel, "Sign Out");
 		
 		SwitchWindow(main_frame, "register vehicle", register_button);
+		SwitchWindow(main_frame, "owned vehicles", vehicles_button);
+		SwitchWindow(main_frame, "vehicle history", history_button);
 		SwitchWindow(main_frame, "login", signout_button);
 		//TO GET ADDED:
 		//view registered vehicles listener
-		//view lot history listener
 	}
 
 }
