@@ -1,5 +1,10 @@
 package project;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.sql.Timestamp;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -39,8 +44,6 @@ public class VehicleOwnerView extends GuiManager{
 		SwitchWindow(main_frame, "owned vehicles", vehicles_button);
 		SwitchWindow(main_frame, "vehicle history", history_button);
 		SwitchWindow(main_frame, "login", signout_button);
-		//TO GET ADDED:
-		//view registered vehicles listener
 	}
 
 }
