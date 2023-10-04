@@ -28,15 +28,14 @@ public class OwnedVehiclesView extends JFrame {
 	private JLabel heading_label;
 	private JButton menu_button;
 
-
 	public OwnedVehiclesView() {
-
+		
 		JFrame frame = new JFrame();
 		frame.setPreferredSize(new Dimension(450, 300));
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Vehicle Lot History");
-
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -45,11 +44,11 @@ public class OwnedVehiclesView extends JFrame {
 		frame.getContentPane().add(contentPane);
 		frame.pack();
 		frame.setVisible(true);
-
+		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 94, 414, 156);
 		contentPane.add(scrollPane);
-
+		
 		owned_vehicles_table = new JTable();
 		owned_vehicles_table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		owned_vehicles_table.setModel(new DefaultTableModel(
@@ -83,13 +82,13 @@ public class OwnedVehiclesView extends JFrame {
 		owned_vehicles_table.getColumnModel().getColumn(4).setPreferredWidth(71);
 		owned_vehicles_table.getColumnModel().getColumn(5).setPreferredWidth(97);
 		scrollPane.setViewportView(owned_vehicles_table);
-
+		
 		heading_label = new JLabel("Registered Vehicles");
 		heading_label.setHorizontalAlignment(SwingConstants.CENTER);
 		heading_label.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		heading_label.setBounds(121, 11, 187, 31);
 		contentPane.add(heading_label);
-
+		
 		menu_button = new JButton("Back");
 		menu_button.setBounds(10, 11, 68, 23);
 		contentPane.add(menu_button);
