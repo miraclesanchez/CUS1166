@@ -10,8 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-import project.GuiManager;
-
 public class IntroGUI extends JFrame{
 	
 	/* Project: Vehicular Cloud
@@ -51,13 +49,13 @@ public class IntroGUI extends JFrame{
 		
 		//Create and add lables,buttons, and image to our main frame
 		JLabel lblNewLabel = new JLabel("Welcome");
-		lblNewLabel.setBounds(143, 30, 61, 16);
+		lblNewLabel.setBounds(204, 32, 61, 16);
 		getContentPane().add(lblNewLabel);
 		
 		ImageIcon img = new ImageIcon("images/car.png"); //i changed this so that it works with the images folder -yvonne
 		JLabel imageLabel = new JLabel(img);
 		imageLabel.setVisible(true);
-		imageLabel.setBounds(204, 16, 61, 52);
+		imageLabel.setBounds(131, 18, 61, 52);
 		getContentPane().add(imageLabel);
 		
 		JButton loginBut = new JButton("Login");
@@ -123,6 +121,60 @@ public class IntroGUI extends JFrame{
 		registerFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		registerFrame.setResizable(false);
 		
+		JLabel fName = new JLabel("First Name:");
+		fName.setBounds(26, 21, 78, 16);
+		registerFrame.add(fName);
+		
+		JLabel lName = new JLabel("Last Name:");
+		lName.setBounds(26, 54, 78, 16);
+		registerFrame.add(lName);
+		
+		JLabel email = new JLabel("Email: ");
+		email.setBounds(26, 92, 64, 16);
+		registerFrame.add(email);
+		
+		JLabel userID = new JLabel("User ID: ");
+		userID.setBounds(26, 132, 61, 16);
+		registerFrame.add(userID);
+		
+		JLabel passwordCreate = new JLabel("Password: ");
+		passwordCreate.setBounds(26, 179, 78, 16);
+		registerFrame.add(passwordCreate);
+	
+		JTextField fnameTxt= new JTextField();
+		fnameTxt.setBounds(108, 16, 130, 26);
+		registerFrame.add(fnameTxt);
+		fnameTxt.setColumns(10);
+		
+		JTextField lNameTxt = new JTextField();
+		lNameTxt.setBounds(108, 49, 130, 26);
+		registerFrame.add(lNameTxt);
+		lNameTxt.setColumns(10);
+		
+		JTextField emailTxt = new JTextField();
+		emailTxt.setBounds(108, 87, 130, 26);
+		registerFrame.add(emailTxt);
+		emailTxt.setColumns(10);
+		
+		JTextField textField_3 = new JTextField();
+		textField_3.setBounds(108, 127, 130, 26);
+		registerFrame.add(textField_3);
+		textField_3.setColumns(10);
+		
+		JTextField passwordTxt = new JTextField();
+		passwordTxt.setBounds(108, 174, 130, 26);
+		registerFrame.add(passwordTxt);
+		passwordTxt.setColumns(10);
+		
+		backBut = new JButton("Back");
+		backBut.setBounds(6, 224, 117, 29);
+		registerFrame.getContentPane().add(backBut);
+		
+		JButton registerButton = new JButton("Register");
+		registerButton.setBounds(265, 224, 117, 29);
+		registerFrame.add(registerButton);
+
+		
 //--------------------------------------------------------------------------------------------------------------------------------//
 
 //ACTION LISTENERS//
@@ -144,15 +196,35 @@ public class IntroGUI extends JFrame{
 				
 			}
 		});
+		
+		registerButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(userType.equalsIgnoreCase("job owner")) {
+					registerFrame.setVisible(false);
+					JobOwnerView job_view = new JobOwnerView();
+				}
+				if(userType.equalsIgnoreCase("car owner")) {
+					VehicleOwnerView owner_view=new VehicleOwnerView();
+					registerFrame.setVisible(false);
+				}
+				
+			}
+		});
 
-//Once selecting their role, the frame will switch to the proper frame with their role indicated in the title		
+//Once selecting their role, the frame will switch to the proper frame with their rile indicated in the title		
 		vehicleOwnerBut.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		    if(vehicleOwnerBut.isSelected()&&userType.equalsIgnoreCase("login")) {
+		    userType="car owner";
 			setVisible(false);
-			loginFrame.setVisible(true);
-			loginFrame.setTitle("Login: Vehicle Owner");
+			VehicleOwnerView owner_view=new VehicleOwnerView();
+			
+			//skipping log in frame and going straight to job or car input 
+//			loginFrame.setVisible(true); 
+//			loginFrame.setTitle("Login: Vehicle Owner"); 
+			
 		}else if(vehicleOwnerBut.isSelected()&&userType.equalsIgnoreCase("register")) {
+			userType="car owner";
 			setVisible(false);
 			registerFrame.setVisible(true);
 		}
@@ -163,10 +235,13 @@ public class IntroGUI extends JFrame{
 		    public void actionPerformed(ActionEvent e) {
 		    	 if(taskOwnerBut.isSelected()&&userType.equalsIgnoreCase("login")) {
 		 			setVisible(false);
-		 			loginFrame.setVisible(true);
-		 			loginFrame.setTitle("Login: Task Owner");
+		 			JobOwnerView job_view = new JobOwnerView();
+		 			userType="job owner";
+//		 			loginFrame.setVisible(true);
+//		 			loginFrame.setTitle("Login: Task Owner");
 		 		}else if(taskOwnerBut.isSelected()&&userType.equalsIgnoreCase("register")) {
 		 			setVisible(false);
+		 			userType="job owner";
 		 			registerFrame.setVisible(true);
 		 		}
 		    }
@@ -174,16 +249,33 @@ public class IntroGUI extends JFrame{
 		
 
 		
-//This action listener will allow the user to go to the next frame and register
+//This action listener will allow the user to go back to the last frame
+		
 		backBut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				loginFrame.setVisible(false);
+				if(registerFrame.isVisible()) {
+					registerFrame.setVisible(false);
+//					loginFrame.setVisible(true);
+				
+				}
 				new IntroGUI();
 			}
 		});
 		
 		//Adding this just for testing purposes for my GUI
-		GuiManager.SwitchWindow(loginFrame, "job menu", loginButton);
+		
+//		GuiManager.SetActionListener(loginFrame, "job menu", loginButton);
+		//commented this this out in order to skip the log in frame in the meantime
+		
+//		if(this.isVisible()) {
+//			GuiManager.SwitchWindow(frame, "job menu", taskOwnerBut);
+//			GuiManager.SwitchWindow(frame, "job menu", vehicleOwnerBut);
+//		}
+//		
+//		if(registerFrame.isVisible()) { //this is not opening menu frame
+//			GuiManager.SwitchWindow(registerFrame, "job menu", registerButton);
+//		}
+		
 	
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);

@@ -18,6 +18,8 @@ public class ViewSubmissions extends GuiManager{
 		int[] panel_layout = {5,1};
 		
 		JFrame view_subs_frame = CreateFrame("View Previous Job Submissions");
+		view_subs_frame.setSize(400, 300);
+		view_subs_frame.setLocationRelativeTo(null);
 		JPanel view_subs_panel = CreatePanel(view_subs_frame, panel_dimensions, panel_layout);
 		JLabel submissions_label = CreateTextLabel("Previous submissions:", "No image", 20.0f);
 		AddTextLabel(view_subs_panel, submissions_label, 100, 100);
