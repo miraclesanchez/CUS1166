@@ -1,12 +1,10 @@
-package project;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 /*Project: Vehicular Cloud
  *Class: JobOwner.java
- *By: Maria Andia 
- * 
+ *Author: Maria Andia 
+ *Date: October 3rd, 2023 
  * */
 public class JobOwner {
 	private List<Job> jobs;
@@ -20,7 +18,7 @@ public class JobOwner {
 	public void submitJob(String name, String status, LocalDate submissionDate, Tuple id) {
 		Job job = new Job(name, status, submissionDate, id);
 		jobs.add(job);
-		 //should probably modify the JobOwnerView Im not sure 
+		 //JobOwnerView will probably going to be modified... Im not sure 
 		//view.updateView();
 	}
 	public Job getJob(int i) {
