@@ -12,69 +12,55 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Vehicle {
-	private String first_name;
-	private String last_name;
-	private String model;
-	private String make;
-	private String year;	
-    private String vehicleId;
+	private int vehicle_ID;
+	private String vehicle_make;
+	private String license_plate;
+	private String vehicle_model;
+	private int year;	
     private String residency;
-//    private static int idCounter = 0;
+
 
 	
-	public Vehicle(String first_name, String last_name, String model, String make, String year, String vehicleId, String residency) {
+	public Vehicle(String model, String make, int year, int vehicleId, String license_plate, String residency) {
 		
-		this.first_name = first_name;
-		this.last_name = last_name;
-		this.model = model;
-		this.make = make;
+		this.vehicle_model = model;
+		this.vehicle_make = make;
 		this.year = year;
-		this.vehicleId = vehicleId;
+		this.vehicle_ID = vehicleId;
+		this.license_plate = license_plate;
 		this.residency = residency;
-//		this.vehicleId = ++idCounter;
 	}
 	
-	public String getVehicleId() {
-		return this.vehicleId;
+	public int getVehicleId() {
+		return this.vehicle_ID;
 	}
 	
-	public String getfirstName() {
-		return this.first_name;
+	public void setVehicleID(int vehicle_ID) {
+		this.vehicle_ID = vehicle_ID;
 	}
 	
-	public void setfirstName(String first_name) {
-		this.first_name = first_name;
-	}
-	
-	public String getLastname() {
-		return this.last_name;
-	}
-	
-	public void setLastname(String last_name) {
-		this.last_name = last_name;
-	}
 	
 	public String getModel() {
-		return this.model;
+		return this.vehicle_model;
 	}
 	
 	public void setModel(String model) {
-		this.model = model;
+		this.vehicle_model = model;
 	}
 	
 	public String getMake() {
-		return this.make;
+		return this.vehicle_make;
 	}
 	
-	public void setMake(String make) {
-		this.make = make;
+	public void setMake(String vehicle_make) {
+		this.vehicle_make = vehicle_make;
 	}
 	
-	public String getYear() {
+	public int getYear() {
 		return this.year;
 	}
 	
-	public void setYear(String year) {
+	public void setYear(int year) {
 		this.year = year;
 	}
 	
@@ -86,18 +72,26 @@ public class Vehicle {
 		this.residency = residency;
 	}
 	
+	public String getLicense() {
+		return this.license_plate;
+	}
 	
-	// Add vehicle to CSV
-	public void saveVehicle(String filename) {
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename, true))) {
-			String data = String.format("%s, %s, %s, %s, %s, %s, %s, %s\n", this.first_name, this.last_name, this.model, this.make, this.year, this.vehicleId, this.residency, timestamp);
-			bw.write(data);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public void setLicense(String license_plate) {
+		this.license_plate = license_plate;
 	}
 }
+	
+//	// Add vehicle to CSV
+//	public void saveVehicle(String filename) {
+//		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+//		try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename, true))) {
+//			String data = String.format("%s, %s, %s, %s, %s, %s, %s, %s\n", this.first_name, this.last_name, this.model, this.make, this.year, this.vehicleId, this.residency, timestamp);
+//			bw.write(data);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//	}
+//}
 	
 //	Commented out this method for now; need to revise CSV format
 //	// Get vehicles
