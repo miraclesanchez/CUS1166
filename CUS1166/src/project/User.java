@@ -1,23 +1,38 @@
 package project;
-
+/*Project: Vehicular Cloud
+ *Class: User.java
+ *By: Miracle Sanchez 
+ * 
+ * */
 public class User {
-	private String name;
+	private String firstName;
+	private String lastName;
 	private String password;
-	private String email;
-	private int id;
+	private int clientID;
+	private String userType;
 	
-	public User(String name, String password, String email) {
-		this.name = name;
+	public User(String firstName, String lastName, String password, int clientID, String userType) {
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.password = password;
-		this.email = email;
+		this.clientID=clientID;
+		this.userType = userType;
 	}
 	
-	public String getName() {
-		return this.name;
+	public String getFirstName() {
+		return this.firstName;
 	}
 	
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String name) {
+		this.firstName = name;
+	}
+	
+	public String getlastName() {
+		return this.lastName;
+	}
+	
+	public void setlastName(String name) {
+		this.lastName = name;
 	}
 	
 	public String getPassword() {
@@ -27,21 +42,28 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	public String getEmail() {
-		return this.email;	
+	public String getUserType() {
+		return this.userType;
 	}
 	
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUserType(String userType) {
+		this.userType = userType;
 	}
-	
+//	
+//	public String getEmail() {
+//		return this.email;	
+//	}
+//	
+//	public void setEmail(String email) {
+//		this.email = email;
+//	}
+//	
 	public int getId() {
-		return this.id;
+		return this.clientID;
 	}
 	
 	public void setId(int id) {
-		this.id = id;
+		this.clientID = id;
 	}
 	
 }
