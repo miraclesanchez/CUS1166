@@ -183,6 +183,7 @@ public class RegisterVehicleView extends JFrame {
 					String year_text = year.getText();
 					String plate_text = plate.getText();
 					String residency_text = residency.getText();
+					//need to create a static method; there used to be a method in vehicle class.
 					Vehicle vehicle = new Vehicle(first_name_text, last_name_text, make_text, model_text, year_text, plate_text, residency_text);
 					vehicle.saveVehicle("VehicleRegistry");
 					JOptionPane.showMessageDialog(null, "Vehicle Successfully Registered", "Success!", JOptionPane.PLAIN_MESSAGE);
