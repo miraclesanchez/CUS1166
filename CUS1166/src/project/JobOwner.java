@@ -32,6 +32,10 @@ public class JobOwner extends User{
 
 		Job job = new Job(id, name, job_duration, job_deadline, isCompleted, inProgress,checkpoints);
 		jobs.add(job);
+		
+		//sends job to the VCC -- Miracle
+		VehicleCloudController.registerJob(job);
+		
 		 //should probably modify the JobOwnerView Im not sure 
 		//view.updateView();
 	}
