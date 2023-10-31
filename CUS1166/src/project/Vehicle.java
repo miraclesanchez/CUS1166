@@ -73,19 +73,19 @@ public class Vehicle {
 	public void setLicense(String license_plate) {
 		this.license_plate = license_plate;
 	}
-}
+
 	
-//	// Add vehicle to CSV
-//	public void saveVehicle(String filename) {
-//		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-//		try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename, true))) {
-//			String data = String.format("%s, %s, %s, %s, %s, %s, %s, %s\n", this.first_name, this.last_name, this.model, this.make, this.year, this.vehicleId, this.residency, timestamp);
-//			bw.write(data);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
-//}
+	// Add vehicle to CSV
+	public void registerVehicle(String filename, String first_name, String last_name) {
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename, true))) {
+			String data = String.format("%s, %s, %s, %s, %d, %s, %d, %s, %s\n", first_name, last_name, this.vehicle_model, this.vehicle_make, this.year, this.license_plate, this.vehicle_ID, this.residency, timestamp);
+			bw.write(data);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+}
 	
 //	Commented out this method for now; need to revise CSV format
 //	// Get vehicles
