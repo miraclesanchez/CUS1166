@@ -1,53 +1,89 @@
-import java.time.LocalDate;
+package project;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.sql.Timestamp;
 /*Project: Vehicular Cloud
  *Class: Job.java
- *By: Maria Andia 
+ *By: Yvonne Huang 
  * 
  * */
 public class Job {
+	private int job_ID;
 	private String name;
-	private String status;
-	private LocalDate submissionDate;
-	private Tuple id;
+	private String job_duration;
+	private String job_deadline;
+	private boolean isCompleted;
+	private boolean inProgress;
+	private String[] checkpoints;
 	
-	public Job(String name, String status, LocalDate submissionDate, Tuple id) {
-		this.name= name;
-		this.status = status;
-		this.submissionDate = submissionDate;
-		this.id = id;
+	public Job(int job_ID, String name, String job_duration, String job_deadline, boolean isCompleted, boolean inProgress, String[] checkpoints) {
+		this.job_ID = job_ID;
+		this.name = name;
+		this.job_duration = job_duration;
+		this.job_deadline = job_deadline;
+		this.isCompleted = isCompleted;
+		this.inProgress = inProgress;
+		this.checkpoints = checkpoints;
+	}
+	
+	public int getID() {
+		return this.job_ID;
 	}
 	
 	public String getName() {
-        return name;
-    }
+		return this.name;
+	}
+	
+	public String getDuration() {
+		return this.job_duration;
+	}
+	
+	public String getDeadline() {
+		return this.job_deadline;
+	}
+	
+	public boolean getStatus() {
+		if (isCompleted == false) {
+			return this.inProgress;
+		}
+		
+		return this.isCompleted;
+	}
+	
+	public void setName(String firstName, String lastName) {
+		this.name = firstName + " " + lastName;
+	}
+	
+	public void setDuration(String duration) {
+		this.job_duration = duration;
+	}
+	
+	public void setDeadline(String deadline) {
+		this.job_deadline = deadline;
+	}
+	
+	public void setCompleted(boolean status) {
+		this.isCompleted = status;
+	}
+	
+	public void setProgress(boolean status) {
+		this.inProgress = status;
+	}
+    
+	/* commenting out for now
+	// Add vehicle to CSV
+	public void saveJob(String filename) {
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename, true))) {
+			String data = String.format("%s, %s, %s\n", this.duration, this.deadline, timestamp);
+			bw.write(data);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	}
 
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-
-    public LocalDate getDate() {
-        return submissionDate;
-    }
-
-    public void setDate(LocalDate submissionDate) {
-        this.submissionDate = submissionDate;
-    }
-
-    public Tuple getId() {
-        return id;
-    }
-
-    public void setId(Tuple id) {
-        this.id = id;
-    }
+	}*/
 }

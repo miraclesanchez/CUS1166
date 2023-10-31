@@ -16,7 +16,7 @@ public class IntroGUI extends JFrame{
 	 * Class: IntroGUI.java
 	 * Author: Miracle Sanchez
 	 * Date: September 29, 2023
-	 * This class displays the welcome frame and includes buttons to allow the user to log in or register as a new user. The buttons 	   will then lead to new frames that will allow them to enter their information to our CSV file
+	 * This class displays the welcome frame and includes buttons to allow the user to log in or register as a new user. The buttons will then lead to new frames that will allow them to enter their information to our CSV file
 	 * 
 	 */
 	
