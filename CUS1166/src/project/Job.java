@@ -12,13 +12,13 @@ import java.sql.Timestamp;
 public class Job {
 	private int job_ID;
 	private String name;
-	private String job_duration;
+	private int job_duration;
 	private String job_deadline;
 	private boolean isCompleted;
 	private boolean inProgress;
 	private String[] checkpoints;
 	
-	public Job(int job_ID, String name, String job_duration, String job_deadline, boolean isCompleted, boolean inProgress, String[] checkpoints) {
+	public Job(int job_ID, String name, int job_duration, String job_deadline, boolean isCompleted, boolean inProgress, String[] checkpoints) {
 		this.job_ID = job_ID;
 		this.name = name;
 		this.job_duration = job_duration;
@@ -36,7 +36,7 @@ public class Job {
 		return this.name;
 	}
 	
-	public String getDuration() {
+	public int getDuration() {
 		return this.job_duration;
 	}
 	
@@ -56,7 +56,7 @@ public class Job {
 		this.name = firstName + " " + lastName;
 	}
 	
-	public void setDuration(String duration) {
+	public void setDuration(int duration) {
 		this.job_duration = duration;
 	}
 	
@@ -72,18 +72,15 @@ public class Job {
 		this.inProgress = status;
 	}
     
-	/* commenting out for now
 	// Add vehicle to CSV
 	public void saveJob(String filename) {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename, true))) {
-			String data = String.format("%s, %s, %s\n", this.duration, this.deadline, timestamp);
+			String data = String.format("%d, %s, %d, %s, %b, %s\n", this.job_ID, this.name, this.job_duration, this.job_deadline, this.isCompleted, timestamp);
 			bw.write(data);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 	}
-
-	}*/
 }
