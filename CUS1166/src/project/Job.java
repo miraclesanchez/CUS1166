@@ -18,13 +18,11 @@ public class Job {
 	private boolean inProgress;
 	private String[] checkpoints;
 	
-	public Job(int job_ID, String name, int job_duration, String job_deadline, boolean isCompleted, boolean inProgress, String[] checkpoints) {
+	public Job(int job_ID, String name, int job_duration, String job_deadline, String[] checkpoints) {
 		this.job_ID = job_ID;
 		this.name = name;
 		this.job_duration = job_duration;
 		this.job_deadline = job_deadline;
-		this.isCompleted = isCompleted;
-		this.inProgress = inProgress;
 		this.checkpoints = checkpoints;
 	}
 	
@@ -76,7 +74,7 @@ public class Job {
 	public void saveJob(String filename) {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename, true))) {
-			String data = String.format("%d, %s, %d, %s, %b, %s\n", this.job_ID, this.name, this.job_duration, this.job_deadline, this.isCompleted, timestamp);
+			String data = String.format("%d, %s, %d, %s, %s\n", this.job_ID, this.name, this.job_duration, this.job_deadline, timestamp);
 			bw.write(data);
 		} catch (IOException e) {
 			e.printStackTrace();
