@@ -72,18 +72,15 @@ public class Job {
 		this.inProgress = status;
 	}
     
-	/* commenting out for now
 	// Add vehicle to CSV
 	public void saveJob(String filename) {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename, true))) {
-			String data = String.format("%s, %s, %s\n", this.duration, this.deadline, timestamp);
+			String data = String.format("%d, %s, %s, %s, %b, %s\n", this.job_ID, this.name, this.job_duration, this.job_deadline, this.isCompleted, timestamp);
 			bw.write(data);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 	}
-
-	}*/
 }
