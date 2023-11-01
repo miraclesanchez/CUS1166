@@ -139,6 +139,9 @@ public class GuiManager{
 									break;
 								case "login":
 									IntroGUI login_view = new IntroGUI();
+									break;
+								case "vcc":
+									VehicleCloudController vcc_view = new VehicleCloudController();
 							}	
 						}
 					}
