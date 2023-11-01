@@ -28,20 +28,23 @@ public class VehicleCloudController {
 		frame.setResizable(false);
 		frame.getContentPane().setLayout(null);
 		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JButton computeBut = new JButton("Computation");
-		computeBut.setBounds(219, 94, 117, 29);
+		computeBut.setBounds(100, 80, 200, 100);
 		frame.getContentPane().add(computeBut);
 		
 		
 		computeBut.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        // Create strings for Job ID and Job Duration
-		        String jobIDString = "Job ID: " + jobID.toString();
-		        String jobDurationString = "Job Duration: " + jobDuration.toString();
-
 		        // Call the completionTime method to calculate completion times
-		        ArrayList<Integer> completion_time = completionTime();
+		        ArrayList <Integer> jobDur = populateJobDur();
+		        ArrayList <Integer> jobID = populateJobID();
+		         ArrayList <Integer> completion_time=completionTime();
+		         
+		         // Create strings for Job ID and Job Duration
+		        String jobIDString = "Job ID: " + jobID.toString();
+		        String jobDurationString = "Job Duration: " + jobDur.toString();
 
 		        // Create a string for Completion Time
 		        String completionTimeString = "Completion Time: " + completion_time.toString();
@@ -59,23 +62,7 @@ public class VehicleCloudController {
 	
 	public static ArrayList<Integer> completionTime() {
 		
-		
 		ArrayList <Integer> completion_time = new ArrayList <>();
-		int totalDuration =0;
-		
-		//This enhanced for loop will return the jobID's and jobDuration's for each job in the QUEUE and add them to the arraylist of jobIDs
-		for(Job job: jobQueue) {
-			job_int=job.getID();
-			jobID.add(job_int);
-			
-			job_dur = job.getDuration();
-			jobDuration.add(job_dur);
-			
-			totalDuration+=job_dur;
-			
-			System.out.print(job_int);
-			System.out.print(job_dur);	
-	}
 		
 		int currentCompletionTime = 0;
 		for (int duration: jobDuration) {
@@ -87,6 +74,25 @@ public class VehicleCloudController {
 	
 		
 	}
+	
+	public static ArrayList <Integer> populateJobID() {
+		for (Job job : jobQueue) {
+			int jobI = job.getID();
+			jobID.add(jobI);
+		}
+		return jobID;
+	}
+	
+
+	public static ArrayList<Integer> populateJobDur() {
+		for (Job job : jobQueue) {
+			int jobI = job.getDuration();
+			jobDuration.add(jobI);
+		}
+		return jobDuration;
+	}
+	
+	
 //	private class SubmitJobListener implements ActionListener {
 //        public void actionPerformed(ActionEvent e) {
 //            //submit job button click event 

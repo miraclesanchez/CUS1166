@@ -1,5 +1,6 @@
 package project;
 import java.awt.event.ActionEvent;
+
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
@@ -16,7 +17,6 @@ public class SubmitJob extends GuiManager{
 	 * Date: September 27th 2023
 	 * This program sets up the interface to submit job information
 	*/
-	VehicleCloudController vcc = new VehicleCloudController();
 
 	public SubmitJob() {
 		// variables to set the size of the user interface panels
@@ -80,7 +80,7 @@ public class SubmitJob extends GuiManager{
 					String[] checkpoints = {};
 					Job newJob = new Job(jobID, jobName, jobDur, jobDead, checkpoints);
 					newJob.saveJob("JobSubmissions");
-					vcc.registerJob(newJob);
+					VehicleCloudController.registerJob(newJob);
 					JOptionPane.showMessageDialog(null, "Job Successfully submitted!", "Success!", JOptionPane.PLAIN_MESSAGE);
 					job_id.setText("");
 					name.setText("");
