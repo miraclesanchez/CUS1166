@@ -35,12 +35,12 @@ public class SubmitJob extends GuiManager{
 		JLabel isCompleted_label = CreateTextLabel("Job Completion(true/false):", "No image", 10.0f);
 		JLabel inProgress_label = CreateTextLabel("Job In Progress(true/false):", "No image", 10.0f);
 		
-		JTextField job_id = CreateTextField(20.0f);
-		JTextField name = CreateTextField(20.0f);
-		JTextField job_duration = CreateTextField(20.0f);
-		JTextField job_deadline = CreateTextField(20.0f);
-		JTextField job_completed = CreateTextField(20.0f);
-		JTextField job_progress = CreateTextField(20.0f);
+		JTextField job_id = CreateTextField(10.0f);
+		JTextField name = CreateTextField(10.0f);
+		JTextField job_duration = CreateTextField(10.0f);
+		JTextField job_deadline = CreateTextField(10.0f);
+		JTextField job_completed = CreateTextField(10.0f);
+		JTextField job_progress = CreateTextField(10.0f);
 		
 		AddTextLabel(submit_panel, enter_label, 100, 100);
 		
