@@ -30,13 +30,14 @@ public class RegisterVehicleView extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField first_name;
-	private JTextField last_name;
-	private JTextField make;
-	private JTextField plate;
-	private JTextField model;
-	private JTextField year;
-	private JTextField residency;
+	private JTextField first_name_input;
+	private JTextField last_name_input;
+	private JTextField make_input;
+	private JTextField plate_input;
+	private JTextField model_input;
+	private JTextField year_input;
+	private JTextField residency_input;
+	private JTextField vehicle_ID_input;
 
 	public RegisterVehicleView() {
 		
@@ -107,17 +108,17 @@ public class RegisterVehicleView extends JFrame {
 		description_label.setBounds(140, 165, 200, 14);
 		contentPane.add(description_label);
 		
-		first_name = new JTextField();
-		first_name.setHorizontalAlignment(SwingConstants.CENTER);
-		first_name.setBounds(10, 123, 151, 20);
-		contentPane.add(first_name);
-		first_name.setColumns(10);
+		first_name_input = new JTextField();
+		first_name_input.setHorizontalAlignment(SwingConstants.CENTER);
+		first_name_input.setBounds(10, 123, 151, 20);
+		contentPane.add(first_name_input);
+		first_name_input.setColumns(10);
 		
-		last_name = new JTextField();
-		last_name.setHorizontalAlignment(SwingConstants.CENTER);
-		last_name.setBounds(323, 123, 151, 20);
-		contentPane.add(last_name);
-		last_name.setColumns(10);
+		last_name_input = new JTextField();
+		last_name_input.setHorizontalAlignment(SwingConstants.CENTER);
+		last_name_input.setBounds(323, 123, 151, 20);
+		contentPane.add(last_name_input);
+		last_name_input.setColumns(10);
 		
 		JLabel register_label = new JLabel("Register Vehicle");
 		register_label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -125,37 +126,65 @@ public class RegisterVehicleView extends JFrame {
 		register_label.setBounds(140, 11, 200, 40);
 		contentPane.add(register_label);
 		
-		make = new JTextField();
-		make.setColumns(10);
-		make.setBounds(20, 226, 89, 20);
-		contentPane.add(make);
+		make_input = new JTextField();
+		make_input.setColumns(10);
+		make_input.setBounds(20, 226, 89, 20);
+		contentPane.add(make_input);
 		
-		plate = new JTextField();
-		plate.setColumns(10);
-		plate.setBounds(354, 226, 89, 20);
-		contentPane.add(plate);
+		plate_input = new JTextField();
+		plate_input.setColumns(10);
+		plate_input.setBounds(354, 226, 89, 20);
+		contentPane.add(plate_input);
 		
-		model = new JTextField();
-		model.setColumns(10);
-		model.setBounds(136, 226, 89, 20);
-		contentPane.add(model);
+		model_input = new JTextField();
+		model_input.setColumns(10);
+		model_input.setBounds(136, 226, 89, 20);
+		contentPane.add(model_input);
 		
-		year = new JTextField();
-		year.addMouseListener(new MouseAdapter() {
+		year_input = new JTextField();
+		year_input.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (year.getText().equals("YYYY")) {
-					year.setText("");
+				if (year_input.getText().equals("YYYY")) {
+					year_input.setText("");
 				}
 			}
 		});
-		year.setHorizontalAlignment(SwingConstants.CENTER);
-		year.setText("YYYY");
-		year.setColumns(10);
-		year.setBounds(259, 226, 46, 20);
-		contentPane.add(year);
 		
+		year_input.setHorizontalAlignment(SwingConstants.CENTER);
+		year_input.setText("YYYY");
+		year_input.setColumns(10);
+		year_input.setBounds(259, 226, 46, 20);
+		contentPane.add(year_input);
 		
+		JButton exit_button = new JButton("Exit");
+		exit_button.setBounds(333, 327, 89, 23);
+		contentPane.add(exit_button);
+		//Returns to vehicle owner menu
+		GuiManager.SwitchWindow(frame, "owner menu", exit_button);
+		
+		residency_input = new JTextField();
+		residency_input.setColumns(10);
+		residency_input.setBounds(20, 285, 89, 20);
+		contentPane.add(residency_input);
+		
+		JLabel residency_label = new JLabel("Expected Residency (hours)");
+		residency_label.setHorizontalAlignment(SwingConstants.CENTER);
+		residency_label.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		residency_label.setBounds(20, 259, 126, 23);
+		contentPane.add(residency_label);
+		
+		vehicle_ID_input = new JTextField();
+		vehicle_ID_input.setHorizontalAlignment(SwingConstants.CENTER);
+		vehicle_ID_input.setColumns(10);
+		vehicle_ID_input.setBounds(179, 285, 62, 20);
+		contentPane.add(vehicle_ID_input);
+		
+		JLabel vehicle_ID_label = new JLabel("ID");
+		vehicle_ID_label.setHorizontalAlignment(SwingConstants.CENTER);
+		vehicle_ID_label.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		vehicle_ID_label.setBounds(179, 263, 62, 14);
+		contentPane.add(vehicle_ID_label);
 		JButton register_button = new JButton("Register");
 		register_button.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
@@ -164,36 +193,41 @@ public class RegisterVehicleView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//Only writes if all text fields contain an input
 				if (
-						(first_name.getText().equals("")) || 
-						(last_name.getText().equals("")) ||
-						(make.getText().equals("")) ||
-						(model.getText().equals("")) ||
-						(year.getText().equals("")) ||
-						(plate.getText().equals("")) ||
-						(residency.getText().equals(""))
+						(first_name_input.getText().equals("")) || 
+						(last_name_input.getText().equals("")) ||
+						(make_input.getText().equals("")) ||
+						(model_input.getText().equals("")) ||
+						(year_input.getText().equals("")) ||
+						(plate_input.getText().equals("")) ||
+						(vehicle_ID_input.getText().equals("")) ||
+						(residency_input.getText().equals(""))
 					) {
 					JOptionPane.showMessageDialog(null, "Required Field Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
 				}
 				//Clears text fields and displays message letting user know that they registered their vehicle
 				else {
-					String first_name_text = first_name.getText();
-					String last_name_text = last_name.getText();
-					String make_text = make.getText();
-					String model_text = model.getText();
-					String year_text = year.getText();
-					String plate_text = plate.getText();
-					String residency_text = residency.getText();
+					String first_name = first_name_input.getText();
+					String last_name = last_name_input.getText();
+					String vehicle_make = make_input.getText();
+					String vehicle_model = model_input.getText();
+					String year_text = year_input.getText();
+					int vehicle_year = Integer.parseInt(year_text);
+					String vehicle_ID_text = vehicle_ID_input.getText();
+					int vehicle_ID = Integer.parseInt(vehicle_ID_text);
+					String license_plate = plate_input.getText();
+					String residency_text = residency_input.getText();
 					//need to create a static method; there used to be a method in vehicle class.
-					Vehicle vehicle = new Vehicle(first_name_text, last_name_text, make_text, model_text, year_text, plate_text, residency_text);
-					vehicle.saveVehicle("VehicleRegistry");
+					Vehicle vehicle = new Vehicle(vehicle_model, vehicle_make, vehicle_year, vehicle_ID, license_plate, residency_text);
+					vehicle.registerVehicle("VehicleRegistry", first_name, last_name);
 					JOptionPane.showMessageDialog(null, "Vehicle Successfully Registered", "Success!", JOptionPane.PLAIN_MESSAGE);
-					first_name.setText("");
-					last_name.setText("");
-					model.setText("");
-					make.setText("");
-					year.setText("YYYY");
-					plate.setText("");
-					residency.setText("");
+					first_name_input.setText("");
+					last_name_input.setText("");
+					model_input.setText("");
+					make_input.setText("");
+					year_input.setText("YYYY");
+					plate_input.setText("");
+					residency_input.setText("");
+					vehicle_ID_input.setText("");
 					//TO GET ADDED:
 					//Write input from text fields to file
 				}
@@ -202,21 +236,6 @@ public class RegisterVehicleView extends JFrame {
 		register_button.setBounds(72, 327, 89, 23);
 		contentPane.add(register_button);
 		
-		JButton exit_button = new JButton("Exit");
-		exit_button.setBounds(333, 327, 89, 23);
-		contentPane.add(exit_button);
-		//Returns to vehicle owner menu
-		GuiManager.SwitchWindow(frame, "owner menu", exit_button);
 		
-		residency = new JTextField();
-		residency.setColumns(10);
-		residency.setBounds(20, 285, 89, 20);
-		contentPane.add(residency);
-		
-		JLabel residency_label = new JLabel("Expected Residency (hours)");
-		residency_label.setHorizontalAlignment(SwingConstants.CENTER);
-		residency_label.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		residency_label.setBounds(20, 259, 126, 23);
-		contentPane.add(residency_label);
 	}
 }
