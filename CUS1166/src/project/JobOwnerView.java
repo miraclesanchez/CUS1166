@@ -15,7 +15,7 @@ public class JobOwnerView extends GuiManager{
 	public JobOwnerView() {
 		// variables to set the size of the user interface panels
 		int[] panel_dimensions = {10,10,10,10};
-		int[] panel_layout = {5,1};
+		int[] panel_layout = {6,1};
 		
 		JFrame main_frame = CreateFrame("Job Owner View");
 		main_frame.setSize(400, 300);
@@ -34,9 +34,11 @@ public class JobOwnerView extends GuiManager{
 		JButton submit_job = AddButton(main_panel, "Submit job information");
 		JButton view_sub = AddButton(main_panel, "View previous job submissions");
 		JButton login_button = AddButton(main_panel, "Back to login");
+		JButton vcc_button = AddButton (main_panel, "Go to VCC");
 		
 		SwitchWindow(main_frame, "submit job", submit_job);
 		SwitchWindow(main_frame, "view submissions", view_sub);
 		SwitchWindow(main_frame, "login", login_button);
+		SwitchWindow(main_frame,"vcc", vcc_button);
 	}
 }

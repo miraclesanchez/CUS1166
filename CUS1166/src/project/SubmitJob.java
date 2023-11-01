@@ -16,7 +16,8 @@ public class SubmitJob extends GuiManager{
 	 * Date: September 27th 2023
 	 * This program sets up the interface to submit job information
 	*/
-	
+	VehicleCloudController vcc = new VehicleCloudController();
+
 	public SubmitJob() {
 		// variables to set the size of the user interface panels
 		int[] panel_dimensions = {10,10,10,10};
@@ -79,6 +80,7 @@ public class SubmitJob extends GuiManager{
 					String[] checkpoints = {};
 					Job newJob = new Job(jobID, jobName, jobDur, jobDead, checkpoints);
 					newJob.saveJob("JobSubmissions");
+					vcc.registerJob(newJob);
 					JOptionPane.showMessageDialog(null, "Job Successfully submitted!", "Success!", JOptionPane.PLAIN_MESSAGE);
 					job_id.setText("");
 					name.setText("");
