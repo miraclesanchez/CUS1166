@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class IntroGUI extends JFrame{
@@ -58,21 +59,32 @@ public class IntroGUI extends JFrame{
 		imageLabel.setBounds(131, 18, 61, 52);
 		getContentPane().add(imageLabel);
 		
+		JTextArea description = new JTextArea ("Within this program, the user will "
+				+ "be able to register a job or vehicle and see the "
+				+ "computation time of the job.");
+		description.setVisible(true);
+		description.setWrapStyleWord(true);
+		description.setEditable(false);
+		description.setBounds(90,70,250,50);
+		description.setLineWrap(true);
+		
+		getContentPane().add(description);
+		
 		JButton loginBut = new JButton("Login");
-		loginBut.setBounds(60, 94, 117, 29);
+		loginBut.setBounds(60, 130, 117, 29);
 		getContentPane().add(loginBut);
 		
 		JButton registerBut = new JButton("Register");
-		registerBut.setBounds(219, 94, 117, 29);
+		registerBut.setBounds(219, 130, 117, 29);
 		getContentPane().add(registerBut);
 		
 		JRadioButton taskOwnerBut = new JRadioButton("Task Owner");
-		taskOwnerBut.setBounds(124, 147, 141, 23);
+		taskOwnerBut.setBounds(124, 160, 141, 23);
 		getContentPane().add(taskOwnerBut);
 		taskOwnerBut.setVisible(false);
 		
 		JRadioButton vehicleOwnerBut = new JRadioButton("Vehicle Owner");
-		vehicleOwnerBut.setBounds(124, 182, 141, 23);
+		vehicleOwnerBut.setBounds(124, 200, 141, 23);
 		getContentPane().add(vehicleOwnerBut);
 		vehicleOwnerBut.setVisible(false);
 
