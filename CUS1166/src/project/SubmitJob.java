@@ -20,7 +20,7 @@ public class SubmitJob extends GuiManager{
 	public SubmitJob() {
 		// variables to set the size of the user interface panels
 		int[] panel_dimensions = {10,10,10,10};
-		int[] panel_layout = {15,1};
+		int[] panel_layout = {12,1};
 
 		JFrame submit_frame = CreateFrame("Submit Job Information");
 		submit_frame.setSize(400, 300);
@@ -32,15 +32,11 @@ public class SubmitJob extends GuiManager{
 		JLabel name_label = CreateTextLabel("Enter your name:", "No image", 10.0f);
 		JLabel duration_label = CreateTextLabel("Enter job duration (hours):", "No image", 10.0f);
 		JLabel deadline_label = CreateTextLabel("Enter job deadline (mm/dd/yyyy):", "No image", 10.0f);
-		JLabel isCompleted_label = CreateTextLabel("Job Completion(true/false):", "No image", 10.0f);
-		JLabel inProgress_label = CreateTextLabel("Job In Progress(true/false):", "No image", 10.0f);
-		
+
 		JTextField job_id = CreateTextField(10.0f);
 		JTextField name = CreateTextField(10.0f);
 		JTextField job_duration = CreateTextField(10.0f);
 		JTextField job_deadline = CreateTextField(10.0f);
-		JTextField job_completed = CreateTextField(10.0f);
-		JTextField job_progress = CreateTextField(10.0f);
 		
 		AddTextLabel(submit_panel, enter_label, 100, 100);
 		
@@ -56,11 +52,6 @@ public class SubmitJob extends GuiManager{
 		AddTextLabel(submit_panel, deadline_label, 100, 100);
 		AddTextField(submit_panel, job_deadline, 100, 100);
 		
-		AddTextLabel(submit_panel, isCompleted_label, 100, 100);
-		AddTextField(submit_panel, job_completed, 100, 100);
-		
-		AddTextLabel(submit_panel, inProgress_label, 100, 100);
-		AddTextField(submit_panel, job_progress, 100, 100);
 		submit_frame.setVisible(true);
 		
 		JButton submit_button = AddButton(submit_panel, "Submit job information"); //save information to file
@@ -74,9 +65,7 @@ public class SubmitJob extends GuiManager{
 						(job_id.getText().equals("")) || 
 						(name.getText().equals("")) ||
 						(job_duration.getText().equals("")) || 
-						(job_deadline.getText().equals("")) ||
-						(job_completed.getText().equals("")) || 
-						(job_progress.getText().equals(""))
+						(job_deadline.getText().equals(""))
 					) {
 					JOptionPane.showMessageDialog(null, "Required Field Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
 				}
@@ -86,19 +75,15 @@ public class SubmitJob extends GuiManager{
 					String jobName = name.getText();
 					int jobDur = Integer.parseInt(job_duration.getText());
 					String jobDead = job_deadline.getText();
-					boolean jobCompleted = Boolean.parseBoolean(job_completed.getText());
-					boolean jobProgress = Boolean.parseBoolean(job_progress.getText());
 					
 					String[] checkpoints = {};
-					Job newJob = new Job(jobID, jobName, jobDur, jobDead, jobCompleted, jobProgress, checkpoints);
+					Job newJob = new Job(jobID, jobName, jobDur, jobDead, checkpoints);
 					newJob.saveJob("JobSubmissions");
 					JOptionPane.showMessageDialog(null, "Job Successfully submitted!", "Success!", JOptionPane.PLAIN_MESSAGE);
 					job_id.setText("");
 					name.setText("");
 					job_duration.setText("");
 					job_deadline.setText("");
-					job_completed.setText("");
-					job_progress.setText("");
 					//System.out.println(job_duration.getText());
 					//TO GET ADDED:
 					//Write input from text fields to file
