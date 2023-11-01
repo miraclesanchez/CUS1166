@@ -20,7 +20,7 @@ public class SubmitJob extends GuiManager{
 	public SubmitJob() {
 		// variables to set the size of the user interface panels
 		int[] panel_dimensions = {10,10,10,10};
-		int[] panel_layout = {7,1};
+		int[] panel_layout = {12,1};
 
 		JFrame submit_frame = CreateFrame("Submit Job Information");
 		submit_frame.setSize(400, 300);
@@ -28,13 +28,23 @@ public class SubmitJob extends GuiManager{
 		JPanel submit_panel = CreatePanel(submit_frame, panel_dimensions, panel_layout);
 		
 		JLabel enter_label = CreateTextLabel("Submit New Job:", "No image", 20.0f);
+		JLabel job_id_label = CreateTextLabel("Enter job ID:", "No image", 10.0f);
+		JLabel name_label = CreateTextLabel("Enter your name:", "No image", 10.0f);
 		JLabel duration_label = CreateTextLabel("Enter job duration (hours):", "No image", 10.0f);
 		JLabel deadline_label = CreateTextLabel("Enter job deadline (mm/dd/yyyy):", "No image", 10.0f);
 		
+		JTextField job_id = CreateTextField(20.0f);
+		JTextField name = CreateTextField(20.0f);
 		JTextField job_duration = CreateTextField(20.0f);
 		JTextField job_deadline = CreateTextField(20.0f);
 		
 		AddTextLabel(submit_panel, enter_label, 100, 100);
+		
+		AddTextLabel(submit_panel, job_id_label, 100, 100);
+		AddTextField(submit_panel, job_id, 100, 100);
+		
+		AddTextLabel(submit_panel, name_label, 100, 100);
+		AddTextField(submit_panel, name, 100, 100);
 		
 		AddTextLabel(submit_panel, duration_label, 100, 100);
 		AddTextField(submit_panel, job_duration, 100, 100);
@@ -51,6 +61,8 @@ public class SubmitJob extends GuiManager{
 			public void actionPerformed(ActionEvent e) {
 				//Only writes if all text fields contain an input
 				if (
+						(job_id.getText().equals("")) || 
+						(name.getText().equals("")) ||
 						(job_duration.getText().equals("")) || 
 						(job_deadline.getText().equals(""))
 					) {
@@ -58,9 +70,13 @@ public class SubmitJob extends GuiManager{
 				}
 				//Clears text fields and displays message letting user know that they registered their vehicle
 				else {
+					String jobID = job_id.getText();
+					String jobName = name.getText();
 					String jobDur = job_duration.getText();
 					String jobDead = job_deadline.getText();
-					Job newJob = new Job(jobDur, jobDead);
+					
+					String[] checkpoints = {};
+					Job newJob = new Job(jobID, jobName, jobDur, jobDead, false, true, checkpoints);
 					newJob.saveJob("JobSubmissions");
 					JOptionPane.showMessageDialog(null, "Job Successfully submitted!", "Success!", JOptionPane.PLAIN_MESSAGE);
 					job_duration.setText("");

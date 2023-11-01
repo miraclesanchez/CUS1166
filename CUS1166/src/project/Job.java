@@ -10,7 +10,7 @@ import java.sql.Timestamp;
  * 
  * */
 public class Job {
-	private int job_ID;
+	private String job_ID;
 	private String name;
 	private String job_duration;
 	private String job_deadline;
@@ -18,7 +18,7 @@ public class Job {
 	private boolean inProgress;
 	private String[] checkpoints;
 	
-	public Job(int job_ID, String name, String job_duration, String job_deadline, boolean isCompleted, boolean inProgress, String[] checkpoints) {
+	public Job(String job_ID, String name, String job_duration, String job_deadline, boolean isCompleted, boolean inProgress, String[] checkpoints) {
 		this.job_ID = job_ID;
 		this.name = name;
 		this.job_duration = job_duration;
@@ -28,7 +28,7 @@ public class Job {
 		this.checkpoints = checkpoints;
 	}
 	
-	public int getID() {
+	public String getID() {
 		return this.job_ID;
 	}
 	
@@ -76,7 +76,7 @@ public class Job {
 	public void saveJob(String filename) {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename, true))) {
-			String data = String.format("%d, %s, %s, %s, %b, %s\n", this.job_ID, this.name, this.job_duration, this.job_deadline, this.isCompleted, timestamp);
+			String data = String.format("%s, %s, %s, %s, %b, %s\n", this.job_ID, this.name, this.job_duration, this.job_deadline, this.isCompleted, timestamp);
 			bw.write(data);
 		} catch (IOException e) {
 			e.printStackTrace();
