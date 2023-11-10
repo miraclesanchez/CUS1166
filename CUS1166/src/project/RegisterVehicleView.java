@@ -16,6 +16,10 @@ import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -38,6 +42,11 @@ public class RegisterVehicleView extends JFrame {
 	private JTextField year_input;
 	private JTextField residency_input;
 	private JTextField vehicle_ID_input;
+
+	static ServerSocket serverSocket;
+	static Socket socket;
+	static DataInputStream inputStream;
+	static DataOutputStream outputStream;
 
 	public RegisterVehicleView() {
 		
@@ -218,18 +227,30 @@ public class RegisterVehicleView extends JFrame {
 					String residency_text = residency_input.getText();
 					//need to create a static method; there used to be a method in vehicle class.
 					Vehicle vehicle = new Vehicle(vehicle_model, vehicle_make, vehicle_year, vehicle_ID, license_plate, residency_text);
-					vehicle.registerVehicle("VehicleRegistry", first_name, last_name);
-					JOptionPane.showMessageDialog(null, "Vehicle Successfully Registered", "Success!", JOptionPane.PLAIN_MESSAGE);
-					first_name_input.setText("");
-					last_name_input.setText("");
-					model_input.setText("");
-					make_input.setText("");
-					year_input.setText("YYYY");
-					plate_input.setText("");
-					residency_input.setText("");
-					vehicle_ID_input.setText("");
-					//TO GET ADDED:
-					//Write input from text fields to file
+					//client connecting to server
+					try {
+						Socket socket = new Socket("localhost", 9806);
+						
+						inputStream = new DataInputStream(socket.getInputStream());
+						outputStream = new DataOutputStream(socket.getOutputStream());
+						
+						//sending info to the server
+						//split this string by the white spaces
+						outputStream.writeUTF("VehicleRegistery " + first_name + " " + last_name);
+						//vehicle.registerVehicle("VehicleRegistry", first_name, last_name);
+						
+						JOptionPane.showMessageDialog(null, "Vehicle Successfully Registered", "Success!", JOptionPane.PLAIN_MESSAGE);
+						first_name_input.setText("");
+						last_name_input.setText("");
+						model_input.setText("");
+						make_input.setText("");
+						year_input.setText("YYYY");
+						plate_input.setText("");
+						residency_input.setText("");
+						vehicle_ID_input.setText("");
+					} catch (Exception excep) {
+						excep.printStackTrace();
+					}
 				}
 			}
 		});
