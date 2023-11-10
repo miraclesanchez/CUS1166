@@ -237,6 +237,10 @@ public class RegisterVehicleView extends JFrame {
 						//sending info to the server
 						//split this string by the white spaces
 						outputStream.writeUTF("VehicleRegistery " + first_name + " " + last_name);
+						//test
+						String messageIn = inputStream.readUTF();
+						System.out.println("message received from server: " + messageIn);
+						
 						//vehicle.registerVehicle("VehicleRegistry", first_name, last_name);
 						
 						JOptionPane.showMessageDialog(null, "Vehicle Successfully Registered", "Success!", JOptionPane.PLAIN_MESSAGE);
