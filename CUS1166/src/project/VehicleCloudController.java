@@ -2,6 +2,10 @@ package project;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -17,10 +21,19 @@ public class VehicleCloudController {
 	static Queue <Job> jobQueue = new LinkedList<>();
 	static ArrayList <Integer> jobID = new ArrayList <>();
 	static ArrayList <Integer> jobDuration = new ArrayList <>();
+	
+	static Queue <Vehicle> vehicleQueue = new LinkedList<>();
+	static ArrayList <Integer> vehicleID = new ArrayList <>();
+
 	static int job_int;	
 	static int job_dur;
 		
 	public VehicleCloudController () {
+		createFrame();
+		
+		
+	}	
+	public static void  createFrame() {
 		JFrame frame=new JFrame();
 		frame.setTitle("Vehicle Cloud Controller");
 		frame.setSize(400, 300);
@@ -60,6 +73,13 @@ public class VehicleCloudController {
 		
 	}
 	
+	public static void registerVehicle(Vehicle vehicle) {
+		vehicleQueue.add(vehicle);
+		
+	}
+	
+	
+	
 	public static ArrayList<Integer> completionTime() {
 		
 		ArrayList <Integer> completion_time = new ArrayList <>();
@@ -93,6 +113,34 @@ public class VehicleCloudController {
 	}
 	
 	
+//Moved the writing method for job to this class. If the VCC accepts the information then it can be written to the file -- Miracle 11/10
+	public void saveJob(String filename) {
+		for (Job job : jobQueue) {
+	
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename, true))) {
+			String data = String.format("%d, %s, %d, %s, %s\n", job.job_ID, job.name, job.job_duration, job.job_deadline, timestamp);
+			bw.write(data);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		}
+	}
+		
+	//Moved the writing method for vehicle to this class. If the VCC accepts the information then it can be written to the file -- Miracle 11/10
+		public void registerVehicle(String filename, String first_name, String last_name) {
+			for(Vehicle vehicle: vehicleQueue) {
+				
+			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+			try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename, true))) {
+				String data = String.format("%s, %s, %s, %s, %d, %s, %d, %s, %s\n", first_name, last_name, vehicle.vehicle_model, vehicle.vehicle_make, vehicle.year, vehicle.license_plate, vehicle.vehicle_ID, vehicle.residency, timestamp);
+				bw.write(data);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			}
+	}
+		
 //	private class SubmitJobListener implements ActionListener {
 //        public void actionPerformed(ActionEvent e) {
 //            //submit job button click event 
@@ -141,5 +189,6 @@ public class VehicleCloudController {
 //            e.printStackTrace();
 //		}
 	}
+
 
 

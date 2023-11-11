@@ -10,10 +10,10 @@ import java.sql.Timestamp;
  * 
  * */
 public class Job {
-	private int job_ID;
-	private String name;
-	private int job_duration;
-	private String job_deadline;
+	int job_ID;
+	String name;
+	int job_duration;
+	String job_deadline;
 	private boolean isCompleted;
 	private boolean inProgress;
 	private String[] checkpoints;
@@ -70,15 +70,15 @@ public class Job {
 		this.inProgress = status;
 	}
     
-	// Add vehicle to CSV
-	public void saveJob(String filename) {
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename, true))) {
-			String data = String.format("%d, %s, %d, %s, %s\n", this.job_ID, this.name, this.job_duration, this.job_deadline, timestamp);
-			bw.write(data);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
+	// Add job to CSV
+//	public void saveJob(String filename) {
+//		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+//		try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename, true))) {
+//			String data = String.format("%d, %s, %d, %s, %s\n", this.job_ID, this.name, this.job_duration, this.job_deadline, timestamp);
+//			bw.write(data);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//
+//	}
 }

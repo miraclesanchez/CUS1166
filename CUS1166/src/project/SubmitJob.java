@@ -90,7 +90,7 @@ public class SubmitJob extends GuiManager{
 					
 					String[] checkpoints = {};
 					Job newJob = new Job(jobID, jobName, jobDur, jobDead, checkpoints);
-					newJob.saveJob("JobSubmissions");
+//					newJob.saveJob("JobSubmissions");
 					VehicleCloudController.registerJob(newJob);
 					JOptionPane.showMessageDialog(null, "Job Successfully submitted!", "Success!", JOptionPane.PLAIN_MESSAGE);
 					job_id.setText("");
@@ -100,6 +100,8 @@ public class SubmitJob extends GuiManager{
 					//System.out.println(job_duration.getText());
 					//TO GET ADDED:
 					//Write input from text fields to file
+					
+					
 					
 					try {
 						socket = new Socket("localhost", 9806);
