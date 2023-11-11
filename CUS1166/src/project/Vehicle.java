@@ -12,8 +12,6 @@ public class Vehicle {
 	private String vehicle_model;
 	private int year;	
     private String residency;
-
-
 	
 	public Vehicle(String model, String make, int year, int vehicleId, String license_plate, String residency) {
 		
