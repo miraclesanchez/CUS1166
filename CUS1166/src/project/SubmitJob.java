@@ -10,6 +10,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
 public class SubmitJob extends GuiManager{
 	/* Project: Vehicular Cloud
 	 * Class: SubmitJob.class
@@ -18,6 +23,12 @@ public class SubmitJob extends GuiManager{
 	 * This program sets up the interface to submit job information
 	*/
 
+	static ServerSocket serverSocket;
+	static Socket socket;
+	static DataInputStream inputStream;
+	static DataOutputStream outputStream;
+	
+	
 	public SubmitJob() {
 		// variables to set the size of the user interface panels
 		int[] panel_dimensions = {10,10,10,10};
@@ -89,10 +100,22 @@ public class SubmitJob extends GuiManager{
 					//System.out.println(job_duration.getText());
 					//TO GET ADDED:
 					//Write input from text fields to file
+					
+					try {
+						socket = new Socket("localhost", 9806);
+						inputStream = new DataInputStream(socket.getInputStream());
+						outputStream = new DataOutputStream(socket.getOutputStream());
+						
+						outputStream.writeUTF("JobRegistery" +jobID+ " "+jobDur);
+					}catch (Exception excep) {
+						excep.printStackTrace();
+					}
 				}
 			}
 		});
 		
 		SwitchWindow(submit_frame, "job menu", menu_button);
+		
+		
 	}
 }
