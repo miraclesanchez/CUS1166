@@ -1,14 +1,20 @@
 package project;
 
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import java.awt.Font;
 
 public class VehicleCloudController {
 	
@@ -19,8 +25,12 @@ public class VehicleCloudController {
 	static ArrayList <Integer> jobDuration = new ArrayList <>();
 	static int job_int;	
 	static int job_dur;
+	static ServerSocket serverSocket;
+	static Socket socket;
+	static DataInputStream inputStream;
+	static DataOutputStream outputStream;
 		
-	public VehicleCloudController () {
+	public VehicleCloudController() {
 		JFrame frame=new JFrame();
 		frame.setTitle("Vehicle Cloud Controller");
 		frame.setSize(400, 300);
@@ -31,8 +41,22 @@ public class VehicleCloudController {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JButton computeBut = new JButton("Computation");
-		computeBut.setBounds(100, 80, 200, 100);
+		computeBut.setBounds(95, 80, 201, 36);
 		frame.getContentPane().add(computeBut);
+		
+		JButton jauthBut = new JButton("Authorize Job Submissions");
+		jauthBut.setBounds(95, 129, 201, 36);
+		frame.getContentPane().add(jauthBut);
+		
+		JButton vauthBut = new JButton("Authorize Vehicle Registrations");
+		vauthBut.setBounds(95, 179, 201, 36);
+		frame.getContentPane().add(vauthBut);
+		
+		JLabel vccMenuLabel = new JLabel("VCC Menu");
+		vccMenuLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		vccMenuLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		vccMenuLabel.setBounds(95, 11, 201, 36);
+		frame.getContentPane().add(vccMenuLabel);
 		
 		
 		computeBut.addActionListener(new ActionListener() {
@@ -91,55 +115,6 @@ public class VehicleCloudController {
 		}
 		return jobDuration;
 	}
-	
-	
-//	private class SubmitJobListener implements ActionListener {
-//        public void actionPerformed(ActionEvent e) {
-//            //submit job button click event 
-//            String name = view.getName();
-//            String status = view.getStatus();
-//            String date = view.getDate();
-//            String id = view.getId();
-//
-//            // Creates a new job and submits it to the model
-//            Job job = new Job(name, status, submissionDate, id);
-//            model.submitJob(job);
-//
-//            // Optionally, update the view to reflect the submitted job
-//            view.updateJobList(model.getJob());
-//        }
-//    }
-//	
-//	private class ExportDataListener implements ActionListener {
-//        public void actionPerformed(ActionEvent e) {
-//            String filename = view.getExportFilename();
-//            exportData(filename);
-//        }
-//	}
-//	
-//	//method to export owner data to a csv file
-//	public void exportData(String filename) {
-//		try {
-//			FileWriter fileWriter = new FileWriter(filename);
-//			// writes owners information to the csv file
-//			String username = model.getUserName();
-//			String password = model.getUserPassword();
-//			String email = model.getUserEmail();
-//			
-//			fileWriter.append(username);
-//			fileWriter.append(",");
-//			fileWriter.append(password);
-//			fileWriter.append(",");
-//			fileWriter.append(email);
-//			fileWriter.append(" ");
-//			fileWriter.flush();
-//			fileWriter.close();
-//			
-//			JOptionPane.showMessageDialog(main_frame, "Information exported to " + filename);
-//		}
-//		catch (IOException e) {
-//            e.printStackTrace();
-//		}
 	}
 
 
