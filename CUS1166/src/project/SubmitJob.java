@@ -102,7 +102,7 @@ public class SubmitJob extends GuiManager{
 					//System.out.println(job_duration.getText());
 					//TO GET ADDED:
 					//Write input from text fields to file
-					clientTalk(newJob);
+					connectJobOwner(newJob);
 					
 					
 //					try {
@@ -123,10 +123,8 @@ public class SubmitJob extends GuiManager{
 		
 	}
 	
-	public static void clientTalk(Job job) {
+	public static void connectJobOwner(Job job) {
 		String messageIn = "";
-		String messageOut = "";
-		Scanner keyInput;
 		
 		try {
 
@@ -144,9 +142,9 @@ public class SubmitJob extends GuiManager{
 			
 			// client reads a message from keyboard
 			System.out.println("Enter a message you want to send to server side: ");
-			messageOut = "Job";
+			String vcc_choice = "Job";
 			// server sends the message to client
-			oos.writeObject(messageOut);
+			oos.writeObject(vcc_choice);
 			oos.writeObject(job);
 			
 	

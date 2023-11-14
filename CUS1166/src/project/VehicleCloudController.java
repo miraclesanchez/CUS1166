@@ -20,7 +20,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import javax.swing.JTextPane;
 
-public class VehicleCloudController implements Runnable {
+public class VehicleCloudController extends GuiManager implements Runnable {
 	
 	int redundancy;
 	int id_counter;
@@ -35,12 +35,7 @@ public class VehicleCloudController implements Runnable {
 	static DataOutputStream outputStream;
 		
 	public VehicleCloudController() {
-//		JFrame frame=new JFrame();
-//		frame.setTitle("Vehicle Cloud Controller");
-//		frame.setSize(400, 300);
-//		frame.setLocationRelativeTo(null);
-//		frame.setResizable(false);
-//		frame.getContentPane().setLayout(null);
+		
 //		
 //		JLabel titleLabel = new JLabel("VCC: Job Submission Authorization");
 //		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -199,19 +194,17 @@ public class VehicleCloudController implements Runnable {
 		computeBut.setBounds(95, 80, 201, 36);
 		frame.getContentPane().add(computeBut);
 		
-		JButton jauthBut = new JButton("Authorize Job Submissions");
-		jauthBut.setBounds(95, 129, 201, 36);
-		frame.getContentPane().add(jauthBut);
-		
-		JButton vauthBut = new JButton("Authorize Vehicle Registrations");
-		vauthBut.setBounds(95, 179, 201, 36);
-		frame.getContentPane().add(vauthBut);
+		JButton menu_button = new JButton("Return to Menu");
+		menu_button.setBounds(95, 129, 201, 36);
+		frame.getContentPane().add(menu_button);
 		
 		JLabel vccMenuLabel = new JLabel("VCC Menu");
 		vccMenuLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		vccMenuLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		vccMenuLabel.setBounds(95, 11, 201, 36);
 		frame.getContentPane().add(vccMenuLabel);
+		
+		SwitchWindow(frame, "job menu", menu_button);
 		
 		
 		computeBut.addActionListener(new ActionListener() {
@@ -237,8 +230,6 @@ public class VehicleCloudController implements Runnable {
 	@Override
 	public void run() {
 		String messageIn = "";
-		String messageOut = "";
-		Scanner keyInput;
 		
 		try {
 
@@ -260,9 +251,8 @@ public class VehicleCloudController implements Runnable {
 				messageIn = ois.readObject().toString();
 				System.out.print(messageIn);
 				
-				if (messageIn.equals("Job")) {
-					Job job;
-					job = (Job)ois.readObject();
+				if (messageIn.equals("Job")) {	
+					Job job = (Job)ois.readObject();
 					System.out.print(job.getID());
 					outputStream.writeUTF("data received");
 					
@@ -341,6 +331,7 @@ public class VehicleCloudController implements Runnable {
 							job.saveJob("JobSubmissions");
 							VehicleCloudController.registerJob(job);
 							frame.dispose();
+							JOptionPane.showMessageDialog(null, "Job Successfully submitted!", "Success!", JOptionPane.PLAIN_MESSAGE);
 						}
 					});
 					decline_button.addActionListener(new ActionListener() {
@@ -352,17 +343,116 @@ public class VehicleCloudController implements Runnable {
 				
 				}
 				else {
+					String fname = ois.readObject().toString();
+					String lname = ois.readObject().toString();
+					Vehicle vehicle = (Vehicle)ois.readObject();
+					outputStream.writeUTF("data received");
+					
 					JFrame frame=new JFrame();
 					frame.setTitle("Vehicle Cloud Controller");
-					frame.setSize(400, 300);
+					frame.setSize(400, 400);
 					frame.setLocationRelativeTo(null);
 					frame.setResizable(false);
 					frame.getContentPane().setLayout(null);
 					frame.setVisible(true);
 					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					
-					Job job = (Job)ois.readObject();
-					System.out.print(job.getID());
+					JLabel titleLabel = new JLabel("VCC: Vehicle Registration Authorization");
+					titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+					titleLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+					titleLabel.setBounds(58, 11, 255, 30);
+					frame.getContentPane().add(titleLabel);
+					
+					JButton acceptButton = new JButton("Accept");
+					acceptButton.setBounds(41, 311, 89, 23);
+					frame.getContentPane().add(acceptButton);
+					
+					JButton decline_button = new JButton("Decline");
+					decline_button.setBounds(249, 311, 89, 23);
+					frame.getContentPane().add(decline_button);
+					
+					JLabel lblNewLabel = new JLabel("The following vehicle has been requested:");
+					lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
+					lblNewLabel.setBounds(41, 52, 286, 23);
+					frame.getContentPane().add(lblNewLabel);
+					
+					JLabel fname_label = new JLabel("First Name:");
+					fname_label.setVerticalAlignment(SwingConstants.TOP);
+					fname_label.setBounds(41, 90, 115, 14);
+					frame.getContentPane().add(fname_label);
+					
+					JLabel lname_label = new JLabel("Last Name:");
+					lname_label.setBounds(41, 115, 115, 14);
+					frame.getContentPane().add(lname_label);
+					
+					JLabel make_label = new JLabel("Make:");
+					make_label.setBounds(41, 140, 115, 14);
+					frame.getContentPane().add(make_label);
+					
+					JLabel deadline_label = new JLabel("Model:");
+					deadline_label.setBounds(41, 165, 115, 14);
+					frame.getContentPane().add(deadline_label);
+					
+					JLabel year_label = new JLabel("Year:");
+					year_label.setBounds(41, 190, 115, 14);
+					frame.getContentPane().add(year_label);
+					
+					JLabel id_label = new JLabel("Vehicle ID:");
+					id_label.setBounds(41, 215, 115, 14);
+					frame.getContentPane().add(id_label);
+					
+					JLabel plate_label = new JLabel("License Plate:");
+					plate_label.setBounds(41, 240, 115, 14);
+					frame.getContentPane().add(plate_label);
+					
+					JLabel residency_label = new JLabel("Residency:");
+					residency_label.setBounds(41, 265, 115, 14);
+					frame.getContentPane().add(residency_label);
+					
+					JLabel submitted_fname_label = new JLabel(fname);
+					submitted_fname_label.setBounds(223, 90, 115, 14);
+					frame.getContentPane().add(submitted_fname_label);
+					
+					JLabel submitted_lname_label = new JLabel(lname);
+					submitted_lname_label.setBounds(223, 115, 115, 14);
+					frame.getContentPane().add(submitted_lname_label);
+					
+					JLabel submitted_make_label = new JLabel(vehicle.getMake());
+					submitted_make_label.setBounds(223, 140, 115, 14);
+					frame.getContentPane().add(submitted_make_label);
+					
+					JLabel submitted_model_label = new JLabel(vehicle.getModel());
+					submitted_model_label.setBounds(223, 165, 115, 14);
+					frame.getContentPane().add(submitted_model_label);
+					
+					JLabel submitted_year_label = new JLabel(Integer.toString(vehicle.getYear()));
+					submitted_year_label.setBounds(223, 190, 115, 14);
+					frame.getContentPane().add(submitted_year_label);
+					
+					JLabel submitted_id_label = new JLabel(Integer.toString(vehicle.getVehicleId()));
+					submitted_id_label.setBounds(223, 215, 115, 14);
+					frame.getContentPane().add(submitted_id_label);
+					
+					JLabel submitted_plate_label = new JLabel(vehicle.getLicense());
+					submitted_plate_label.setBounds(223, 240, 115, 14);
+					frame.getContentPane().add(submitted_plate_label);
+					
+					JLabel submitted_residency_label = new JLabel(vehicle.getResidency());
+					submitted_residency_label.setBounds(223, 265, 115, 14);
+					frame.getContentPane().add(submitted_residency_label);
+					
+					acceptButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							vehicle.registerVehicle("VehicleRegistry", fname, lname);
+							frame.dispose();
+							JOptionPane.showMessageDialog(null, "Vehicle Successfully Registered", "Success!", JOptionPane.PLAIN_MESSAGE);
+						}
+					});
+					decline_button.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							frame.dispose();
+						}
+					});	
 				}
 //			}
 			}
