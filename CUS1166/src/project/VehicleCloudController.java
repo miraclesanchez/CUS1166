@@ -36,102 +36,6 @@ public class VehicleCloudController extends GuiManager implements Runnable {
 		
 	public VehicleCloudController() {
 		
-//		
-//		JLabel titleLabel = new JLabel("VCC: Job Submission Authorization");
-//		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-//		titleLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-//		titleLabel.setBounds(80, 11, 222, 30);
-//		frame.getContentPane().add(titleLabel);
-//		
-//		JButton acceptButton = new JButton("Accept");
-//		acceptButton.setBounds(41, 205, 89, 23);
-//		frame.getContentPane().add(acceptButton);
-//		
-//		JButton decline_button = new JButton("Decline");
-//		decline_button.setBounds(249, 205, 89, 23);
-//		frame.getContentPane().add(decline_button);
-//		
-//		JLabel lblNewLabel = new JLabel("The following job has been submitted:");
-//		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
-//		lblNewLabel.setBounds(41, 52, 237, 23);
-//		frame.getContentPane().add(lblNewLabel);
-//		
-//		JLabel id_label = new JLabel("Job ID:");
-//		id_label.setVerticalAlignment(SwingConstants.TOP);
-//		id_label.setBounds(41, 90, 115, 14);
-//		frame.getContentPane().add(id_label);
-//		
-//		JLabel client_name_label = new JLabel("Client Name:");
-//		client_name_label.setBounds(41, 115, 115, 14);
-//		frame.getContentPane().add(client_name_label);
-//		
-//		JLabel durration_label = new JLabel("Job Durration:");
-//		durration_label.setBounds(41, 140, 115, 14);
-//		frame.getContentPane().add(durration_label);
-//		
-//		JLabel deadline_label = new JLabel("Job Deadline:");
-//		deadline_label.setBounds(41, 165, 115, 14);
-//		frame.getContentPane().add(deadline_label);
-//		
-//		JLabel submitted_id_label = new JLabel("USER ID HERE");
-//		submitted_id_label.setVerticalAlignment(SwingConstants.TOP);
-//		submitted_id_label.setBounds(166, 90, 172, 14);
-//		frame.getContentPane().add(submitted_id_label);
-//		
-//		JLabel submitted_name_label = new JLabel("USER NAME HERE");
-//		submitted_name_label.setVerticalAlignment(SwingConstants.TOP);
-//		submitted_name_label.setBounds(166, 115, 172, 14);
-//		frame.getContentPane().add(submitted_name_label);
-//		
-//		JLabel submitted_durration_label = new JLabel("USER DURR HERE");
-//		submitted_durration_label.setVerticalAlignment(SwingConstants.TOP);
-//		submitted_durration_label.setBounds(166, 140, 172, 14);
-//		frame.getContentPane().add(submitted_durration_label);
-//		
-//		JLabel submitted_deadline_label = new JLabel("USER DEADLINE HERE");
-//		submitted_deadline_label.setVerticalAlignment(SwingConstants.TOP);
-//		submitted_deadline_label.setBounds(166, 165, 172, 14);
-//		frame.getContentPane().add(submitted_deadline_label);
-//		frame.setVisible(true);
-//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-//		JButton computeBut = new JButton("Computation");
-//		computeBut.setBounds(95, 80, 201, 36);
-//		frame.getContentPane().add(computeBut);
-//		
-//		JButton jauthBut = new JButton("Authorize Job Submissions");
-//		jauthBut.setBounds(95, 129, 201, 36);
-//		frame.getContentPane().add(jauthBut);
-//		
-//		JButton vauthBut = new JButton("Authorize Vehicle Registrations");
-//		vauthBut.setBounds(95, 179, 201, 36);
-//		frame.getContentPane().add(vauthBut);
-//		
-//		JLabel vccMenuLabel = new JLabel("VCC Menu");
-//		vccMenuLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-//		vccMenuLabel.setHorizontalAlignment(SwingConstants.CENTER);
-//		vccMenuLabel.setBounds(95, 11, 201, 36);
-//		frame.getContentPane().add(vccMenuLabel);
-//		
-//		
-//		computeBut.addActionListener(new ActionListener() {
-//		    public void actionPerformed(ActionEvent e) {
-//		        // Call the completionTime method to calculate completion times
-//		        ArrayList <Integer> jobDur = populateJobDur();
-//		        ArrayList <Integer> jobID = populateJobID();
-//		         ArrayList <Integer> completion_time=completionTime();
-//		         
-//		         // Create strings for Job ID and Job Duration
-//		        String jobIDString = "Job ID: " + jobID.toString();
-//		        String jobDurationString = "Job Duration: " + jobDur.toString();
-//
-//		        // Create a string for Completion Time
-//		        String completionTimeString = "Completion Time: " + completion_time.toString();
-//
-//		        // Display the information in a JOptionPane message
-//		        JOptionPane.showMessageDialog(null, jobIDString + "\n" + jobDurationString + "\n" + completionTimeString);
-//		    }
-//		});
 	}
 	
 	public static void registerJob(Job job) {
@@ -229,31 +133,37 @@ public class VehicleCloudController extends GuiManager implements Runnable {
 
 	@Override
 	public void run() {
-		String messageIn = "";
+		String userChoice = "";
 		
 		try {
 
-			System.out.println("----------$$$ This is server side $$$--------");
-			System.out.println("wating for client to connect...");
+			System.out.println("Server is running");
+			System.out.println("Waiting for client to connect...");
+			
 			// creating the server
 			serverSocket = new ServerSocket(9805);
-			// sever accepts connection request from client
+
 			while (true) {
+				// sever accepts connection request from client
 				socket = serverSocket.accept();
-				socket.getRemoteSocketAddress();
 				System.out.println("client is connected!");
-				System.out.println("go to client side and send me a message");
 	
 				// server sends a message to client
 				outputStream = new DataOutputStream(socket.getOutputStream());
 				
+				// client receives object from server
 				ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-				messageIn = ois.readObject().toString();
-				System.out.print(messageIn);
 				
-				if (messageIn.equals("Job")) {	
+				// server is notified of what task is being performed
+				userChoice = ois.readObject().toString();
+				
+				// job submission acceptance page
+				if (userChoice.equals("Job")) {	
+					
+					// read necessary vehicle information
 					Job job = (Job)ois.readObject();
-					System.out.print(job.getID());
+					
+					// notify client to disconnect
 					outputStream.writeUTF("data received");
 					
 					String job_id = Integer.toString(job.getID());
@@ -326,6 +236,7 @@ public class VehicleCloudController extends GuiManager implements Runnable {
 					frame.setVisible(true);
 					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					
+					// writes job info to file and displays confirmation to user
 					acceptButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							job.saveJob("JobSubmissions");
@@ -334,18 +245,25 @@ public class VehicleCloudController extends GuiManager implements Runnable {
 							JOptionPane.showMessageDialog(null, "Job Successfully submitted!", "Success!", JOptionPane.PLAIN_MESSAGE);
 						}
 					});
+					// notify client that job has not been accepted and does not save to file
 					decline_button.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							frame.dispose();
+							JOptionPane.showMessageDialog(null, "Job Submission Rejected", "Declined", JOptionPane.PLAIN_MESSAGE);
 						}
 					});	
 			        
 				
 				}
+				// vehicle registration acceptance page
 				else {
+					
+					// read necessary vehicle information
 					String fname = ois.readObject().toString();
 					String lname = ois.readObject().toString();
 					Vehicle vehicle = (Vehicle)ois.readObject();
+					
+					// notify client to disconnect
 					outputStream.writeUTF("data received");
 					
 					JFrame frame=new JFrame();
@@ -441,6 +359,7 @@ public class VehicleCloudController extends GuiManager implements Runnable {
 					submitted_residency_label.setBounds(223, 265, 115, 14);
 					frame.getContentPane().add(submitted_residency_label);
 					
+					// writes vehicle info to file and displays confirmation to user
 					acceptButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							vehicle.registerVehicle("VehicleRegistry", fname, lname);
@@ -448,9 +367,11 @@ public class VehicleCloudController extends GuiManager implements Runnable {
 							JOptionPane.showMessageDialog(null, "Vehicle Successfully Registered", "Success!", JOptionPane.PLAIN_MESSAGE);
 						}
 					});
+					// notify client that job has not been accepted and does not save to file
 					decline_button.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							frame.dispose();
+							JOptionPane.showMessageDialog(null, "Vehicle Registration Rejected", "Declined", JOptionPane.PLAIN_MESSAGE);
 						}
 					});	
 				}

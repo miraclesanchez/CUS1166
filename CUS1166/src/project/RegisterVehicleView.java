@@ -226,7 +226,6 @@ public class RegisterVehicleView extends JFrame {
 					int vehicle_ID = Integer.parseInt(vehicle_ID_text);
 					String license_plate = plate_input.getText();
 					String residency_text = residency_input.getText();
-					//need to create a static method; there used to be a method in vehicle class.
 					Vehicle vehicle = new Vehicle(vehicle_model, vehicle_make, vehicle_year, vehicle_ID, license_plate, residency_text);
 					//client connecting to server
 					connectVehicleOwner(vehicle, first_name, last_name);
@@ -254,35 +253,34 @@ public class RegisterVehicleView extends JFrame {
 		
 		try {
 
-			System.out.println("----------*** This is client side ***--------");
-			System.out.println("client started!");
-			//connect the client socket to server
+			//connect the client socket to vcc
 			Socket socket = new Socket("localhost", 9805);
 			
 			
-			//client reads a message from Server
+			// client reads a message from vcc
 			inputStream = new DataInputStream(socket.getInputStream());
-//			outputStream = new DataOutputStream(socket.getOutputStream());
+			// client sends object to vcc
 			ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
 			
 			
-			// client reads a message from keyboard
-			System.out.println("Enter a message you want to send to server side: ");
+			// notify vcc that user is registering a vehicle
 			String vcc_choice = "vehicle";
-			// server sends the message to client
+			
+			// client sends vehicle registration info to vcc
 			oos.writeObject(vcc_choice);
 			oos.writeObject(fname);
 			oos.writeObject(lname);
 			oos.writeObject(vehicle);
 			
-	
+	        // read vcc messages until vcc notifies client "data received"
 			while (!messageIn.equals("data received")) {
-				messageIn = inputStream.readUTF();
-				System.out.print(messageIn);	
+				messageIn = inputStream.readUTF();	
 			}
-			System.out.println("closing connection");	
+			
+			// close socket connection and streams
+			System.out.println("data received");
+			System.out.println("closing client connection");	
 			socket.close();
-			System.out.println("connection closed");
 			inputStream.close();
 			oos.close();
 
