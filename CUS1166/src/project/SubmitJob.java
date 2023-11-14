@@ -12,8 +12,10 @@ import javax.swing.JTextField;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class SubmitJob extends GuiManager{
 	/* Project: Vehicular Cloud
@@ -90,9 +92,9 @@ public class SubmitJob extends GuiManager{
 					
 					String[] checkpoints = {};
 					Job newJob = new Job(jobID, jobName, jobDur, jobDead, checkpoints);
-					newJob.saveJob("JobSubmissions");
-					VehicleCloudController.registerJob(newJob);
-					JOptionPane.showMessageDialog(null, "Job Successfully submitted!", "Success!", JOptionPane.PLAIN_MESSAGE);
+//					newJob.saveJob("JobSubmissions");
+//					VehicleCloudController.registerJob(newJob);
+//					JOptionPane.showMessageDialog(null, "Job Successfully submitted!", "Success!", JOptionPane.PLAIN_MESSAGE);
 					job_id.setText("");
 					name.setText("");
 					job_duration.setText("");
@@ -100,16 +102,18 @@ public class SubmitJob extends GuiManager{
 					//System.out.println(job_duration.getText());
 					//TO GET ADDED:
 					//Write input from text fields to file
+					clientTalk(newJob);
 					
-					try {
-						socket = new Socket("localhost", 9806);
-						inputStream = new DataInputStream(socket.getInputStream());
-						outputStream = new DataOutputStream(socket.getOutputStream());
-						
-						outputStream.writeUTF("JobRegistery" +jobID+ " "+jobDur);
-					}catch (Exception excep) {
-						excep.printStackTrace();
-					}
+					
+//					try {
+//						socket = new Socket("localhost", 9806);
+//						inputStream = new DataInputStream(socket.getInputStream());
+//						outputStream = new DataOutputStream(socket.getOutputStream());
+//						
+//						outputStream.writeUTF("JobRegistery" +jobID+ " "+jobDur);
+//					}catch (Exception excep) {
+//						excep.printStackTrace();
+//					}
 				}
 			}
 		});
@@ -117,5 +121,49 @@ public class SubmitJob extends GuiManager{
 		SwitchWindow(submit_frame, "job menu", menu_button);
 		
 		
+	}
+	
+	public static void clientTalk(Job job) {
+		String messageIn = "";
+		String messageOut = "";
+		Scanner keyInput;
+		
+		try {
+
+			System.out.println("----------*** This is client side ***--------");
+			System.out.println("client started!");
+			//connect the client socket to server
+			Socket socket = new Socket("localhost", 9805);
+			
+			
+			//client reads a message from Server
+			inputStream = new DataInputStream(socket.getInputStream());
+//			outputStream = new DataOutputStream(socket.getOutputStream());
+			ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+			
+			
+			// client reads a message from keyboard
+			System.out.println("Enter a message you want to send to server side: ");
+			messageOut = "Job";
+			// server sends the message to client
+			oos.writeObject(messageOut);
+			oos.writeObject(job);
+			
+	
+			while (!messageIn.equals("data received")) {
+				messageIn = inputStream.readUTF();
+				System.out.print(messageIn);	
+			}
+			System.out.println("closing connection");	
+			socket.close();
+			System.out.println("connection closed");
+			inputStream.close();
+			oos.close();
+
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+
+		}
 	}
 }
