@@ -18,6 +18,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.awt.event.ActionListener;
@@ -228,33 +229,17 @@ public class RegisterVehicleView extends JFrame {
 					//need to create a static method; there used to be a method in vehicle class.
 					Vehicle vehicle = new Vehicle(vehicle_model, vehicle_make, vehicle_year, vehicle_ID, license_plate, residency_text);
 					//client connecting to server
-					try {
-						Socket socket = new Socket("localhost", 9806);
-						
-						inputStream = new DataInputStream(socket.getInputStream());
-						outputStream = new DataOutputStream(socket.getOutputStream());
-						
-						//sending info to the server
-						//split this string by the white spaces
-						outputStream.writeUTF("VehicleRegistery " + first_name + " " + last_name);
-						//test
-						String messageIn = inputStream.readUTF();
-						System.out.println("message received from server: " + messageIn);
-						
-						//vehicle.registerVehicle("VehicleRegistry", first_name, last_name);
-						
-						JOptionPane.showMessageDialog(null, "Vehicle Successfully Registered", "Success!", JOptionPane.PLAIN_MESSAGE);
-						first_name_input.setText("");
-						last_name_input.setText("");
-						model_input.setText("");
-						make_input.setText("");
-						year_input.setText("YYYY");
-						plate_input.setText("");
-						residency_input.setText("");
-						vehicle_ID_input.setText("");
-					} catch (Exception excep) {
-						excep.printStackTrace();
-					}
+					connectVehicleOwner(vehicle, first_name, last_name);
+					
+					
+					first_name_input.setText("");
+					last_name_input.setText("");
+					model_input.setText("");
+					make_input.setText("");
+					year_input.setText("YYYY");
+					plate_input.setText("");
+					residency_input.setText("");
+					vehicle_ID_input.setText("");
 				}
 			}
 		});
@@ -262,5 +247,49 @@ public class RegisterVehicleView extends JFrame {
 		contentPane.add(register_button);
 		
 		
+	}
+	
+	public static void connectVehicleOwner(Vehicle vehicle, String fname, String lname) {
+		String messageIn = "";
+		
+		try {
+
+			System.out.println("----------*** This is client side ***--------");
+			System.out.println("client started!");
+			//connect the client socket to server
+			Socket socket = new Socket("localhost", 9805);
+			
+			
+			//client reads a message from Server
+			inputStream = new DataInputStream(socket.getInputStream());
+//			outputStream = new DataOutputStream(socket.getOutputStream());
+			ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+			
+			
+			// client reads a message from keyboard
+			System.out.println("Enter a message you want to send to server side: ");
+			String vcc_choice = "vehicle";
+			// server sends the message to client
+			oos.writeObject(vcc_choice);
+			oos.writeObject(fname);
+			oos.writeObject(lname);
+			oos.writeObject(vehicle);
+			
+	
+			while (!messageIn.equals("data received")) {
+				messageIn = inputStream.readUTF();
+				System.out.print(messageIn);	
+			}
+			System.out.println("closing connection");	
+			socket.close();
+			System.out.println("connection closed");
+			inputStream.close();
+			oos.close();
+
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+
+		}
 	}
 }

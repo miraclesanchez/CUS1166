@@ -142,6 +142,7 @@ public class GuiManager{
 									break;
 								case "vcc":
 									VehicleCloudController vcc_view = new VehicleCloudController();
+									vcc_view.vccFrame();
 							}	
 						}
 					}

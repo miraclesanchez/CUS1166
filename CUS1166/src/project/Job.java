@@ -3,13 +3,14 @@ package project;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 import java.sql.Timestamp;
 /*Project: Vehicular Cloud
  *Class: Job.java
  *By: Yvonne Huang 
  * 
  * */
-public class Job {
+public class Job implements Serializable {
 	private int job_ID;
 	private String name;
 	private int job_duration;
