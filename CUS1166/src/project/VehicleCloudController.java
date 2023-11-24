@@ -33,10 +33,7 @@ public class VehicleCloudController extends GuiManager implements Runnable {
 	static Socket socket;
 	static DataInputStream inputStream;
 	static DataOutputStream outputStream;
-		
-	public VehicleCloudController() {
-		
-	}
+
 	
 	public static void registerJob(Job job) {
 		jobQueue.add(job);
@@ -160,7 +157,7 @@ public class VehicleCloudController extends GuiManager implements Runnable {
 				// job submission acceptance page
 				if (userChoice.equals("Job")) {	
 					
-					// read necessary vehicle information
+					// read necessary job information
 					Job job = (Job)ois.readObject();
 					
 					// notify client to disconnect
@@ -375,7 +372,7 @@ public class VehicleCloudController extends GuiManager implements Runnable {
 						}
 					});	
 				}
-//			}
+
 			}
 		} catch (Exception e) {
 
