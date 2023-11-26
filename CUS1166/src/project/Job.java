@@ -15,7 +15,7 @@ import java.util.Date;
 
 public class Job implements Serializable {
 	private int job_ID;
-	private String name;
+	private String clientID;
 	private int job_duration;
 	private Date job_deadline;
 
@@ -25,7 +25,7 @@ public class Job implements Serializable {
 	
 	public Job(int job_ID, String clientID, int job_duration, Date job_deadline, String[] checkpoints) {
 		this.job_ID = job_ID;
-		this.name = clientID;
+		this.clientID = clientID;
 		this.job_duration = job_duration;
 		this.job_deadline = job_deadline;
 		this.checkpoints = checkpoints;
@@ -35,8 +35,8 @@ public class Job implements Serializable {
 		return this.job_ID;
 	}
 	
-	public String getName() {
-		return this.name;
+	public String getClientID() {
+		return this.clientID;
 	}
 	
 	public int getDuration() {
@@ -55,8 +55,8 @@ public class Job implements Serializable {
 		return this.isCompleted;
 	}
 	
-	public void setName(String firstName, String lastName) {
-		this.name = firstName + " " + lastName;
+	public void setID(String clientID) {
+		this.clientID = clientID;
 	}
 	
 	public void setDuration(int duration) {
@@ -90,7 +90,7 @@ public class Job implements Serializable {
 		String deadline =formatDeadline(this.job_deadline);
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename, true))) {
-			String data = String.format("%d, %s, %d, %s, %s\n", this.job_ID, this.name, this.job_duration, deadline, timestamp);
+			String data = String.format("%d, %s, %d, %s, %s\n", this.job_ID, this.clientID, this.job_duration, deadline, timestamp);
 			bw.write(data);
 		} catch (IOException e) {
 			e.printStackTrace();

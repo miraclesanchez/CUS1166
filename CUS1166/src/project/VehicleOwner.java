@@ -10,7 +10,7 @@ public class VehicleOwner extends User {
 	int time_vehicle;
 	static Vehicle vehicle;
 	
-	public VehicleOwner(String firstName, String lastName, String password, int clientID, String userType) {
+	public VehicleOwner(String firstName, String lastName, String password, String clientID, String userType) {
 		super(firstName, lastName, password, clientID, userType);
 		// TODO Auto-generated constructor stub
 	}
