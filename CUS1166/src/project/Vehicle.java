@@ -4,14 +4,17 @@ import java.sql.Timestamp;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 
-public class Vehicle {
-	int vehicle_ID;
-	String vehicle_make;
-	String license_plate;
-	String vehicle_model;
-	int year;	
-    String residency;
+
+public class Vehicle implements Serializable {
+	private int vehicle_ID;
+	private String vehicle_make;
+	private String license_plate;
+	private String vehicle_model;
+	private int year;	
+    private String residency;
+
 	
 	public Vehicle(String model, String make, int year, int vehicleId, String license_plate, String residency) {
 		
@@ -74,15 +77,15 @@ public class Vehicle {
 
 	
 	// Add vehicle to CSV
-//	public void registerVehicle(String filename, String first_name, String last_name) {
-//		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-//		try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename, true))) {
-//			String data = String.format("%s, %s, %s, %s, %d, %s, %d, %s, %s\n", first_name, last_name, this.vehicle_model, this.vehicle_make, this.year, this.license_plate, this.vehicle_ID, this.residency, timestamp);
-//			bw.write(data);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
+	public void registerVehicle(String filename, String first_name, String last_name) {
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename, true))) {
+			String data = String.format("%s, %s, %s, %s, %d, %s, %d, %s, %s\n", first_name, last_name, this.vehicle_model, this.vehicle_make, this.year, this.license_plate, this.vehicle_ID, this.residency, timestamp);
+			bw.write(data);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
 	
 //	Commented out this method for now; need to revise CSV format

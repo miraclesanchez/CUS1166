@@ -8,7 +8,10 @@ public class TestProject {
 		//Allows components to properly load.
 		EventQueue.invokeLater(new Runnable() {
 	        public void run() {
-				IntroGUI login = new IntroGUI();
+	        	VehicleCloudController vcc = new VehicleCloudController();
+				Thread t = new Thread(vcc);
+				t.start();
+	        	IntroGUI login = new IntroGUI();
 				//RegisterVehicleView d = new RegisterVehicleView();
 				//VehicleOwnerView d = new VehicleOwnerView();
 	        }

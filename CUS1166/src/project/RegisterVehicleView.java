@@ -18,6 +18,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.awt.event.ActionListener;
@@ -225,36 +226,19 @@ public class RegisterVehicleView extends JFrame {
 					int vehicle_ID = Integer.parseInt(vehicle_ID_text);
 					String license_plate = plate_input.getText();
 					String residency_text = residency_input.getText();
-					//need to create a static method; there used to be a method in vehicle class.
 					Vehicle vehicle = new Vehicle(vehicle_model, vehicle_make, vehicle_year, vehicle_ID, license_plate, residency_text);
 					//client connecting to server
-					try {
-						Socket socket = new Socket("localhost", 9806);
-						
-						inputStream = new DataInputStream(socket.getInputStream());
-						outputStream = new DataOutputStream(socket.getOutputStream());
-						
-						//sending info to the server
-						//split this string by the white spaces
-						outputStream.writeUTF("VehicleRegistery " + first_name + " " + last_name);
-						//test
-						String messageIn = inputStream.readUTF();
-						System.out.println("message received from server: " + messageIn);
-						
-						//vehicle.registerVehicle("VehicleRegistry", first_name, last_name);
-						
-						JOptionPane.showMessageDialog(null, "Vehicle Successfully Registered", "Success!", JOptionPane.PLAIN_MESSAGE);
-						first_name_input.setText("");
-						last_name_input.setText("");
-						model_input.setText("");
-						make_input.setText("");
-						year_input.setText("YYYY");
-						plate_input.setText("");
-						residency_input.setText("");
-						vehicle_ID_input.setText("");
-					} catch (Exception excep) {
-						excep.printStackTrace();
-					}
+					connectVehicleOwner(vehicle, first_name, last_name);
+					
+					
+					first_name_input.setText("");
+					last_name_input.setText("");
+					model_input.setText("");
+					make_input.setText("");
+					year_input.setText("YYYY");
+					plate_input.setText("");
+					residency_input.setText("");
+					vehicle_ID_input.setText("");
 				}
 			}
 		});
@@ -262,5 +246,48 @@ public class RegisterVehicleView extends JFrame {
 		contentPane.add(register_button);
 		
 		
+	}
+	
+	public static void connectVehicleOwner(Vehicle vehicle, String fname, String lname) {
+		String messageIn = "";
+		
+		try {
+
+			//connect the client socket to vcc
+			Socket socket = new Socket("localhost", 9805);
+			
+			
+			// client reads a message from vcc
+			inputStream = new DataInputStream(socket.getInputStream());
+			// client sends object to vcc
+			ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+			
+			
+			// notify vcc that user is registering a vehicle
+			String vcc_choice = "vehicle";
+			
+			// client sends vehicle registration info to vcc
+			oos.writeObject(vcc_choice);
+			oos.writeObject(fname);
+			oos.writeObject(lname);
+			oos.writeObject(vehicle);
+			
+	        // read vcc messages until vcc notifies client "data received"
+			while (!messageIn.equals("data received")) {
+				messageIn = inputStream.readUTF();	
+			}
+			
+			// close socket connection and streams
+			System.out.println("data received");
+			System.out.println("closing client connection");	
+			socket.close();
+			inputStream.close();
+			oos.close();
+
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+
+		}
 	}
 }

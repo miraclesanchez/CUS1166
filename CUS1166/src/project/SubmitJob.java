@@ -1,7 +1,14 @@
 package project;
 import java.awt.event.ActionEvent;
-
 import java.awt.event.ActionListener;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -9,11 +16,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
 
 public class SubmitJob extends GuiManager{
 	/* Project: Vehicular Cloud
@@ -86,32 +88,27 @@ public class SubmitJob extends GuiManager{
 					int jobID = Integer.parseInt(job_id.getText());
 					String jobName = name.getText();
 					int jobDur = Integer.parseInt(job_duration.getText());
-					String jobDead = job_deadline.getText();
+					
+					//changed the type of the deadline to Date. included a parser for it since it is originally in String form when taken from the GUI
+					String dateString = job_deadline.getText();
+					SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+					Date jobDead = null;
+					
+					try {
+						jobDead = dateFormat.parse(dateString);
+					}catch (ParseException e1) {
+						e1.printStackTrace();
+					}
 					
 					String[] checkpoints = {};
 					Job newJob = new Job(jobID, jobName, jobDur, jobDead, checkpoints);
-//					newJob.saveJob("JobSubmissions");
-					VehicleCloudController.registerJob(newJob);
-					JOptionPane.showMessageDialog(null, "Job Successfully submitted!", "Success!", JOptionPane.PLAIN_MESSAGE);
+					
 					job_id.setText("");
 					name.setText("");
 					job_duration.setText("");
 					job_deadline.setText("");
-					//System.out.println(job_duration.getText());
-					//TO GET ADDED:
-					//Write input from text fields to file
 					
-					
-					
-					try {
-						socket = new Socket("localhost", 9806);
-						inputStream = new DataInputStream(socket.getInputStream());
-						outputStream = new DataOutputStream(socket.getOutputStream());
-						
-						outputStream.writeUTF("JobRegistery" +jobID+ " "+jobDur);
-					}catch (Exception excep) {
-						excep.printStackTrace();
-					}
+					connectJobOwner(newJob);
 				}
 			}
 		});
@@ -119,5 +116,45 @@ public class SubmitJob extends GuiManager{
 		SwitchWindow(submit_frame, "job menu", menu_button);
 		
 		
+	}
+	
+	public static void connectJobOwner(Job job) {
+		String messageIn = "";
+		
+		try {
+			// connect the client socket to vcc
+			Socket socket = new Socket("localhost", 9805);
+			
+			
+			// client reads a message from Server
+			inputStream = new DataInputStream(socket.getInputStream());
+			// client sends object to vcc
+			ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+			
+			
+			// notify vcc that user is submitting a job
+			String vcc_choice = "Job";
+			
+			// client sends job submission info to vcc
+			oos.writeObject(vcc_choice);
+			oos.writeObject(job);
+			
+			// read vcc messages until vcc notifies client "data received"
+			while (!messageIn.equals("data received")) {
+				messageIn = inputStream.readUTF();	
+			}
+			
+			// close socket connection and streams
+			System.out.println("data received");
+			System.out.println("closing client connection");	
+			socket.close();
+			inputStream.close();
+			oos.close();
+
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+
+		}
 	}
 }
