@@ -43,7 +43,7 @@ public class SubmitJob extends GuiManager{
 		
 		JLabel enter_label = CreateTextLabel("Submit New Job:", "No image", 20.0f);
 		JLabel job_id_label = CreateTextLabel("Enter job ID (Ex/ 12345):", "No image", 10.0f);
-		JLabel name_label = CreateTextLabel("Enter your name:", "No image", 10.0f);
+		JLabel name_label = CreateTextLabel("Enter your clientID:", "No image", 10.0f);
 		JLabel duration_label = CreateTextLabel("Enter job duration (hours):", "No image", 10.0f);
 		JLabel deadline_label = CreateTextLabel("Enter job deadline (mm/dd/yyyy):", "No image", 10.0f);
 

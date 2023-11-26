@@ -22,15 +22,15 @@ public class JobOwner extends User{
 
 //----------------------------------------------------------------------------------------------------------------//
 	//This method is used to create the job owner, using the same attributes from its super class "user" - Miracle
-	public JobOwner(String firstName, String lastName, String password, int clientID, String userType) {
+	public JobOwner(String firstName, String lastName, String password, String clientID, String userType) {
 		super(firstName, lastName, password, clientID, userType);
 		jobs = new ArrayList<>();
 	}
 	
 //----------------------------------------------------------------------------------------------------------------------//	
 	//This method is used to create and submit the job using the attributes from the Job class 	
-	public void submitJob(String name, String status, LocalDate submissionDate, int id, int job_duration, Date job_deadline,boolean isCompleted,boolean inProgress, String[] checkpoints) {
-		Job job = new Job(id,name,job_duration, job_deadline, checkpoints);
+	public void submitJob(String clientID, String status, LocalDate submissionDate, int id, int job_duration, Date job_deadline,boolean isCompleted,boolean inProgress, String[] checkpoints) {
+		Job job = new Job(id,clientID,job_duration, job_deadline, checkpoints);
 		jobs.add(job);
 		
 		//sends job to the VCC -- Miracle

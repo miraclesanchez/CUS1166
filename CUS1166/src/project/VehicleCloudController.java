@@ -164,7 +164,7 @@ public class VehicleCloudController extends GuiManager implements Runnable {
 					outputStream.writeUTF("data received");
 					
 					String job_id = Integer.toString(job.getID());
-					String job_name = job.getName();
+					String job_name = job.getClientID();
 					String job_durration = Integer.toString(job.getDuration());
 					
 					//chenged deadline to a date -- miracle
