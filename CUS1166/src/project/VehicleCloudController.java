@@ -33,7 +33,7 @@ public class VehicleCloudController extends GuiManager implements Runnable {
 	static Socket socket;
 	static DataInputStream inputStream;
 	static DataOutputStream outputStream;
-
+	
 	
 	public static void registerJob(Job job) {
 		jobQueue.add(job);
