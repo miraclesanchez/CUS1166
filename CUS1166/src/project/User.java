@@ -8,10 +8,10 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private String password;
-	private int clientID;
+	private String clientID;
 	private String userType;
 	
-	public User(String firstName, String lastName, String password, int clientID, String userType) {
+	public User(String firstName, String lastName, String password, String clientID, String userType) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.password = password;
@@ -58,11 +58,11 @@ public class User {
 //		this.email = email;
 //	}
 //	
-	public int getId() {
+	public String getId() {
 		return this.clientID;
 	}
 	
-	public void setId(int id) {
+	public void setId(String id) {
 		this.clientID = id;
 	}
 	
