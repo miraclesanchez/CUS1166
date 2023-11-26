@@ -11,8 +11,8 @@ import java.util.ArrayList;
 public class SQLConnector {
 
 	
-	String url = "jdbc:mysql://localhost:3306/arcade";
-	String username = "";
+	String url = "jdbc:mysql://localhost:3306/SWE";
+	String username = "milagros";
 	String password = "";
 	Connection conn;
 	Statement word;
