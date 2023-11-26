@@ -68,7 +68,7 @@ public class SQLConnector {
 	public void InsertJobData(int jobID, String clientID, int jobDuration, Date jobDeadline) {
 		String insert_query = "insert into JobRegistry "
 				+ "(jobID, clientID, jobDuration, jobDeadline, jobDescription)" 
-				+ " values (?, ?, ?, ?, ?, ?, ?)";
+				+ " values (?, ?, ?, ?, ?)";
 		
 		try {
 			PreparedStatement prepared_query = conn.prepareStatement(insert_query);
