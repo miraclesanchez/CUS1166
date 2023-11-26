@@ -2,6 +2,7 @@ package project;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 /*Project: Vehicular Cloud
  *Class: JobOwner.java
@@ -28,8 +29,8 @@ public class JobOwner extends User{
 	
 //----------------------------------------------------------------------------------------------------------------------//	
 	//This method is used to create and submit the job using the attributes from the Job class 	
-	public void submitJob(String name, String status, LocalDate submissionDate, int id, String job_duration, String job_deadline,boolean isCompleted,boolean inProgress, String[] checkpoints) {
-		Job job = new Job(id, job_deadline, id, job_deadline, checkpoints);
+	public void submitJob(String name, String status, LocalDate submissionDate, int id, int job_duration, Date job_deadline,boolean isCompleted,boolean inProgress, String[] checkpoints) {
+		Job job = new Job(id,name,job_duration, job_deadline, checkpoints);
 		jobs.add(job);
 		
 		//sends job to the VCC -- Miracle

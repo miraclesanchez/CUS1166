@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 /*Project: Vehicular Cloud
  *Class: Job.java
  *By: Yvonne Huang 
@@ -14,14 +15,14 @@ public class Job implements Serializable {
 	private int job_ID;
 	private String name;
 	private int job_duration;
-	private String job_deadline;
+	private Date job_deadline;
 	private boolean isCompleted;
 	private boolean inProgress;
 	private String[] checkpoints;
 	
-	public Job(int job_ID, String name, int job_duration, String job_deadline, String[] checkpoints) {
+	public Job(int job_ID, String clientID, int job_duration, Date job_deadline, String[] checkpoints) {
 		this.job_ID = job_ID;
-		this.name = name;
+		this.name = clientID;
 		this.job_duration = job_duration;
 		this.job_deadline = job_deadline;
 		this.checkpoints = checkpoints;
@@ -39,7 +40,7 @@ public class Job implements Serializable {
 		return this.job_duration;
 	}
 	
-	public String getDeadline() {
+	public Date getDeadline() {
 		return this.job_deadline;
 	}
 	
@@ -59,7 +60,7 @@ public class Job implements Serializable {
 		this.job_duration = duration;
 	}
 	
-	public void setDeadline(String deadline) {
+	public void setDeadline(Date deadline) {
 		this.job_deadline = deadline;
 	}
 	
