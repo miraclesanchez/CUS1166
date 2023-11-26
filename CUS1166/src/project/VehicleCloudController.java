@@ -1,24 +1,24 @@
 package project;
 
-import java.io.*;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.Scanner;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.ObjectInputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.Queue;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
-
-import java.awt.EventQueue;
-import java.awt.Font;
-import javax.swing.JTextPane;
 
 public class VehicleCloudController extends GuiManager implements Runnable {
 	
@@ -33,10 +33,7 @@ public class VehicleCloudController extends GuiManager implements Runnable {
 	static Socket socket;
 	static DataInputStream inputStream;
 	static DataOutputStream outputStream;
-		
-	public VehicleCloudController() {
-		
-	}
+
 	
 	public static void registerJob(Job job) {
 		jobQueue.add(job);
@@ -160,7 +157,7 @@ public class VehicleCloudController extends GuiManager implements Runnable {
 				// job submission acceptance page
 				if (userChoice.equals("Job")) {	
 					
-					// read necessary vehicle information
+					// read necessary job information
 					Job job = (Job)ois.readObject();
 					
 					// notify client to disconnect
@@ -169,7 +166,15 @@ public class VehicleCloudController extends GuiManager implements Runnable {
 					String job_id = Integer.toString(job.getID());
 					String job_name = job.getName();
 					String job_durration = Integer.toString(job.getDuration());
-					String job_deadline = job.getDeadline();
+					
+					//chenged deadline to a date -- miracle
+					Date job_deadline = job.getDeadline();
+					
+					//parsed the date back into a string to display it on GUI -- miracle
+					SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+
+					String deadlineString = dateFormat.format(job_deadline);
+					System.out.println("Formatted Date String: " + deadlineString);
 					
 					JFrame frame=new JFrame();
 					frame.setTitle("Vehicle Cloud Controller");
@@ -229,7 +234,7 @@ public class VehicleCloudController extends GuiManager implements Runnable {
 					submitted_durration_label.setBounds(166, 140, 172, 14);
 					frame.getContentPane().add(submitted_durration_label);
 					
-					JLabel submitted_deadline_label = new JLabel(job_deadline);
+					JLabel submitted_deadline_label = new JLabel(deadlineString);
 					submitted_deadline_label.setVerticalAlignment(SwingConstants.TOP);
 					submitted_deadline_label.setBounds(166, 165, 172, 14);
 					frame.getContentPane().add(submitted_deadline_label);
@@ -375,7 +380,7 @@ public class VehicleCloudController extends GuiManager implements Runnable {
 						}
 					});	
 				}
-//			}
+
 			}
 		} catch (Exception e) {
 

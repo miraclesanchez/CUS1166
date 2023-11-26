@@ -1,7 +1,14 @@
 package project;
 import java.awt.event.ActionEvent;
-
 import java.awt.event.ActionListener;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -9,13 +16,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.ObjectOutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.Scanner;
 
 public class SubmitJob extends GuiManager{
 	/* Project: Vehicular Cloud
@@ -88,7 +88,17 @@ public class SubmitJob extends GuiManager{
 					int jobID = Integer.parseInt(job_id.getText());
 					String jobName = name.getText();
 					int jobDur = Integer.parseInt(job_duration.getText());
-					String jobDead = job_deadline.getText();
+					
+					//changed the type of the deadline to Date. included a parser for it since it is originally in String form when taken from the GUI
+					String dateString = job_deadline.getText();
+					SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+					Date jobDead = null;
+					
+					try {
+						jobDead = dateFormat.parse(dateString);
+					}catch (ParseException e1) {
+						e1.printStackTrace();
+					}
 					
 					String[] checkpoints = {};
 					Job newJob = new Job(jobID, jobName, jobDur, jobDead, checkpoints);

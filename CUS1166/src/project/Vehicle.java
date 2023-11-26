@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
 
+
 public class Vehicle implements Serializable {
 	private int vehicle_ID;
 	private String vehicle_make;
@@ -13,6 +14,7 @@ public class Vehicle implements Serializable {
 	private String vehicle_model;
 	private int year;	
     private String residency;
+
 	
 	public Vehicle(String model, String make, int year, int vehicleId, String license_plate, String residency) {
 		
