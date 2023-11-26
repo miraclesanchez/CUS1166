@@ -12,11 +12,13 @@ import java.util.Date;
  *By: Yvonne Huang 
  * 
  * */
+
 public class Job implements Serializable {
 	private int job_ID;
 	private String name;
 	private int job_duration;
 	private Date job_deadline;
+
 	private boolean isCompleted;
 	private boolean inProgress;
 	private String[] checkpoints;
@@ -82,6 +84,7 @@ public class Job implements Serializable {
 		return deadlineString;
 	}
     
+
 	// Add vehicle to CSV
 	public void saveJob(String filename) {
 		String deadline =formatDeadline(this.job_deadline);
@@ -94,4 +97,5 @@ public class Job implements Serializable {
 		}
 
 	}
+
 }
