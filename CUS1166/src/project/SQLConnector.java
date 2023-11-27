@@ -30,6 +30,7 @@ public class SQLConnector {
 				+ " values (?, ?, ?, ?)";
 		
 		try {
+			conn = DriverManager.getConnection(url, username, password);
 			PreparedStatement prepared_query = conn.prepareStatement(insert_query);
 			prepared_query.setString(1, clientID);
 			prepared_query.setString(2, firstName);
@@ -49,6 +50,7 @@ public class SQLConnector {
 				+ " values (?, ?, ?, ?, ?, ?, ?)";
 		
 		try {
+			conn = DriverManager.getConnection(url, username, password);
 			PreparedStatement prepared_query = conn.prepareStatement(insert_query);
 			prepared_query.setString(1, clientID);
 			prepared_query.setString(2, make);
@@ -71,6 +73,7 @@ public class SQLConnector {
 				+ " values (?, ?, ?, ?, ?)";
 		
 		try {
+			conn = DriverManager.getConnection(url, username, password);
 			PreparedStatement prepared_query = conn.prepareStatement(insert_query);
 			prepared_query.setInt(1, jobID);
 			prepared_query.setString(2, clientID);
