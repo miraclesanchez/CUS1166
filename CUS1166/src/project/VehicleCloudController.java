@@ -8,6 +8,7 @@ import java.io.DataOutputStream;
 import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,6 +34,8 @@ public class VehicleCloudController extends GuiManager implements Runnable {
 	static Socket socket;
 	static DataInputStream inputStream;
 	static DataOutputStream outputStream;
+	SQLConnector sql = new SQLConnector();
+	Date sqlDate = null;
 	
 	
 	public static void registerJob(Job job) {
@@ -207,9 +210,9 @@ public class VehicleCloudController extends GuiManager implements Runnable {
 					id_label.setBounds(41, 90, 115, 14);
 					frame.getContentPane().add(id_label);
 					
-					JLabel client_name_label = new JLabel("Client Name:");
-					client_name_label.setBounds(41, 115, 115, 14);
-					frame.getContentPane().add(client_name_label);
+					JLabel client_ID_label = new JLabel("Client ID:");
+					client_ID_label.setBounds(41, 115, 115, 14);
+					frame.getContentPane().add(client_ID_label);
 					
 					JLabel durration_label = new JLabel("Job Durration:");
 					durration_label.setBounds(41, 140, 115, 14);
@@ -244,10 +247,15 @@ public class VehicleCloudController extends GuiManager implements Runnable {
 					// writes job info to file and displays confirmation to user
 					acceptButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
+							int jobID = job.getID();
+							String clientID = job.getClientID();
+							int dur = job.getDuration();
+	
 							job.saveJob("JobSubmissions");
 							VehicleCloudController.registerJob(job);
 							frame.dispose();
 							JOptionPane.showMessageDialog(null, "Job Successfully submitted!", "Success!", JOptionPane.PLAIN_MESSAGE);
+							sql.InsertJobData(jobID,clientID,dur,job_deadline);
 						}
 					});
 					// notify client that job has not been accepted and does not save to file

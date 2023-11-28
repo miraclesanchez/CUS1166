@@ -35,6 +35,8 @@ public class IntroGUI extends JFrame{
 	//This variable will hold the user type selected by the user (vehicle owner or task owner) and it will affect the login screen or register screen that they see next
 	String userType;
 	
+	SQLConnector sql = new SQLConnector();
+	
 //---------------------------------------------------------------------------------------------------------------------------------//
 	
 
@@ -97,7 +99,7 @@ public class IntroGUI extends JFrame{
 		loginFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		loginFrame.setResizable(false);
 		
-		JLabel username = new JLabel("Username:");
+		JLabel username = new JLabel("Client ID:");
 		username.setBounds(114, 59, 70, 16);
 		loginFrame.getContentPane().add(username);
 		
@@ -141,9 +143,13 @@ public class IntroGUI extends JFrame{
 		lName.setBounds(26, 54, 78, 16);
 		registerFrame.add(lName);
 		
-		JLabel email = new JLabel("Email: ");
-		email.setBounds(26, 92, 64, 16);
-		registerFrame.add(email);
+//		JLabel email = new JLabel("Email: ");
+//		email.setBounds(26, 92, 64, 16);
+//		registerFrame.add(email);
+		
+		JLabel announcement = new JLabel("UserID must be 10 characters long");
+		announcement.setBounds(26, 92, 400, 16);
+		registerFrame.add(announcement);
 		
 		JLabel userID = new JLabel("User ID: ");
 		userID.setBounds(26, 132, 61, 16);
@@ -163,15 +169,15 @@ public class IntroGUI extends JFrame{
 		registerFrame.add(lNameTxt);
 		lNameTxt.setColumns(10);
 		
-		JTextField emailTxt = new JTextField();
-		emailTxt.setBounds(108, 87, 130, 26);
-		registerFrame.add(emailTxt);
-		emailTxt.setColumns(10);
+//		JTextField emailTxt = new JTextField();
+//		emailTxt.setBounds(108, 87, 130, 26);
+//		registerFrame.add(emailTxt);
+//		emailTxt.setColumns(10);
 		
-		JTextField textField_3 = new JTextField();
-		textField_3.setBounds(108, 127, 130, 26);
-		registerFrame.add(textField_3);
-		textField_3.setColumns(10);
+		JTextField userIDtxt = new JTextField();
+		userIDtxt.setBounds(108, 127, 130, 26);
+		registerFrame.add(userIDtxt);
+		userIDtxt.setColumns(10);
 		
 		JTextField passwordTxt = new JTextField();
 		passwordTxt.setBounds(108, 174, 130, 26);
@@ -200,45 +206,59 @@ public class IntroGUI extends JFrame{
 			}
 		});
 		
+		//this is the button in the login frame
 		registerBut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				userType="register";
 				vehicleOwnerBut.setVisible(true);
 				taskOwnerBut.setVisible(true);
-				
 			}
 		});
 		
+		//this is the button in the registration frame
 		registerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(userType.equalsIgnoreCase("job owner")) {
+				
+			//pull the information from the register frame
+				String clientID = userIDtxt.getText();
+				String fname = fnameTxt.getText();
+				String lname = lNameTxt.getText();
+				String password = passwordTxt.getText();
+			
+				//put info in database
+			sql.InsertOwnerData(userType, clientID, fname, lname, password);
+				
+				
+				
+				if(userType.equalsIgnoreCase("JobOwner")) {
 					registerFrame.setVisible(false);
 					JobOwnerView job_view = new JobOwnerView();
 				}
-				if(userType.equalsIgnoreCase("car owner")) {
+				if(userType.equalsIgnoreCase("VehicleOwner")) {
 					VehicleOwnerView owner_view=new VehicleOwnerView();
 					registerFrame.setVisible(false);
 				}
 				
+				System.out.println(userType);
 			}
 		});
 
-//Once selecting their role, the frame will switch to the proper frame with their rile indicated in the title		
+//Once selecting their role, the frame will switch to the proper frame with their role indicated in the title		
 		vehicleOwnerBut.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		    if(vehicleOwnerBut.isSelected()&&userType.equalsIgnoreCase("login")) {
-		    userType="car owner";
+		    userType="VehicleOwner";
 			setVisible(false);
-			VehicleOwnerView owner_view=new VehicleOwnerView();
+//			VehicleOwnerView owner_view=new VehicleOwnerView();
 			
-			//skipping log in frame and going straight to job or car input 
-//			loginFrame.setVisible(true); 
-//			loginFrame.setTitle("Login: Vehicle Owner"); 
+			loginFrame.setVisible(true); 
+			loginFrame.setTitle("Login: Vehicle Owner"); 
 			
 		}else if(vehicleOwnerBut.isSelected()&&userType.equalsIgnoreCase("register")) {
-			userType="car owner";
+			userType="VehicleOwner";
 			setVisible(false);
 			registerFrame.setVisible(true);
+			registerFrame.setTitle("Register: Vehicle Owner");
 		}
 		    }
 		});
@@ -247,14 +267,15 @@ public class IntroGUI extends JFrame{
 		    public void actionPerformed(ActionEvent e) {
 		    	 if(taskOwnerBut.isSelected()&&userType.equalsIgnoreCase("login")) {
 		 			setVisible(false);
-		 			JobOwnerView job_view = new JobOwnerView();
-		 			userType="job owner";
-//		 			loginFrame.setVisible(true);
-//		 			loginFrame.setTitle("Login: Task Owner");
+//		 			JobOwnerView job_view = new JobOwnerView();
+		 			userType="JobOwner";
+		 			loginFrame.setVisible(true);
+		 			loginFrame.setTitle("Login: Task Owner");
 		 		}else if(taskOwnerBut.isSelected()&&userType.equalsIgnoreCase("register")) {
 		 			setVisible(false);
-		 			userType="job owner";
+		 			userType="JobOwner";
 		 			registerFrame.setVisible(true);
+		 			registerFrame.setTitle("Register: Job Owner");
 		 		}
 		    }
 		});

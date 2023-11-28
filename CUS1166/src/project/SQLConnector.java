@@ -13,8 +13,8 @@ public class SQLConnector {
 
 	
 	String url = "jdbc:mysql://localhost:3306/SWE";
-	String username = "milagros";
-	String password = "";
+	String username = "softwareengineering";
+	String password = "CompSciRocks46$";
 	Connection conn;
 	Statement word;
 	ResultSet results;
@@ -39,6 +39,7 @@ public class SQLConnector {
 			
 			prepared_query.execute();
 			conn.close();
+			System.out.println("Data Inserted");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -73,12 +74,15 @@ public class SQLConnector {
 				+ " values (?, ?, ?, ?, ?)";
 		
 		try {
+			java.util.Date utilDate = jobDeadline; // Assuming jobDeadline is a java.util.Date
+			java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+
 			conn = DriverManager.getConnection(url, username, password);
 			PreparedStatement prepared_query = conn.prepareStatement(insert_query);
 			prepared_query.setInt(1, jobID);
 			prepared_query.setString(2, clientID);
 			prepared_query.setInt(3, jobDuration);
-			prepared_query.setDate(4, (java.sql.Date) jobDeadline);
+			prepared_query.setDate(4, sqlDate);
 			prepared_query.setString(5, null); //replace later if we're adding descriptions
 			
 			prepared_query.execute();
