@@ -117,13 +117,13 @@ public class IntroGUI extends JFrame{
 		loginFrame.getContentPane().add(passtxt);
 		passtxt.setColumns(10);
 		
-		JButton loginButton = new JButton("Login");
-		loginButton.setBounds(140, 154, 117, 29);
-		loginFrame.getContentPane().add(loginButton);
+		JButton loginButtonLFrame = new JButton("Login");
+		loginButtonLFrame.setBounds(140, 154, 117, 29);
+		loginFrame.getContentPane().add(loginButtonLFrame);
 		
-		JButton backBut = new JButton("Back");
-		backBut.setBounds(6, 224, 117, 29);
-		loginFrame.getContentPane().add(backBut);
+		JButton backButLogin = new JButton("Back");
+		backButLogin.setBounds(6, 224, 117, 29);
+		loginFrame.getContentPane().add(backButLogin);
 		
 
 //--------------------------------------------------------------------------------------------------------------------------------//
@@ -184,7 +184,7 @@ public class IntroGUI extends JFrame{
 		registerFrame.add(passwordTxt);
 		passwordTxt.setColumns(10);
 		
-		backBut = new JButton("Back");
+		JButton backBut = new JButton("Back");
 		backBut.setBounds(6, 224, 117, 29);
 		registerFrame.getContentPane().add(backBut);
 		
@@ -249,7 +249,6 @@ public class IntroGUI extends JFrame{
 		    if(vehicleOwnerBut.isSelected()&&userType.equalsIgnoreCase("login")) {
 		    userType="VehicleOwner";
 			setVisible(false);
-//			VehicleOwnerView owner_view=new VehicleOwnerView();
 			
 			loginFrame.setVisible(true); 
 			loginFrame.setTitle("Login: Vehicle Owner"); 
@@ -267,7 +266,6 @@ public class IntroGUI extends JFrame{
 		    public void actionPerformed(ActionEvent e) {
 		    	 if(taskOwnerBut.isSelected()&&userType.equalsIgnoreCase("login")) {
 		 			setVisible(false);
-//		 			JobOwnerView job_view = new JobOwnerView();
 		 			userType="JobOwner";
 		 			loginFrame.setVisible(true);
 		 			loginFrame.setTitle("Login: Task Owner");
@@ -282,7 +280,7 @@ public class IntroGUI extends JFrame{
 		
 
 		
-//This action listener will allow the user to go back to the last frame
+//This action listener will allow the user to go back to the last frame from the registration frame
 		
 		backBut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -294,6 +292,41 @@ public class IntroGUI extends JFrame{
 				new IntroGUI();
 			}
 		});
+		
+		//This action listener will allow the user to go back to the last frame from the login frame
+		
+				backButLogin.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if(loginFrame.isVisible()) {
+							loginFrame.setVisible(false);
+//							loginFrame.setVisible(true);
+						
+						}
+						new IntroGUI();
+					}
+				});
+				
+	
+//This actionlistener will verify if the username and password exist in the database and return the pop up saying if it was successful or not 			
+				loginButtonLFrame.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if(loginFrame.isVisible()) {
+							loginFrame.setVisible(false);
+//							loginFrame.setVisible(true);
+						
+							//opens the next frame based on userType
+							if(userType.equalsIgnoreCase("VehicleOwner")) {
+								VehicleOwnerView owner_view=new VehicleOwnerView();
+							}else if(userType.equalsIgnoreCase("JobOwner")) {
+								JobOwnerView job_view = new JobOwnerView();
+							}
+							//ADD CODE FOR CHECKING THE DATABASE HERE
+						}
+						
+					}
+				});
+				
+				
 		
 		//Adding this just for testing purposes for my GUI
 		
