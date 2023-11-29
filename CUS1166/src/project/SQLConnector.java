@@ -53,7 +53,7 @@ public class SQLConnector {
 		try {
 			conn = DriverManager.getConnection(url, username, password);
 			PreparedStatement prepared_query = conn.prepareStatement(insert_query);
-			prepared_query.setString(1, clientID);
+			prepared_query.setString(1, "3456231456");
 			prepared_query.setString(2, make);
 			prepared_query.setString(3, model);
 			prepared_query.setInt(4, carYear);
