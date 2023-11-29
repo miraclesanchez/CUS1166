@@ -375,11 +375,21 @@ public class VehicleCloudController extends GuiManager implements Runnable {
 					// writes vehicle info to file and displays confirmation to user
 					acceptButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							vehicle.registerVehicle("VehicleRegistry", fname, lname);
-							frame.dispose();
-							JOptionPane.showMessageDialog(null, "Vehicle Successfully Registered", "Success!", JOptionPane.PLAIN_MESSAGE);
-						}
+									String clientID = Integer.toString(vehicle.getVehicleId());
+									String make = vehicle.getMake();
+									String model = vehicle.getModel();
+									int carYear = vehicle.getYear();
+									String licensePlate = vehicle.getLicense();
+									String residency = vehicle.getResidency();
+									int vehicleID = vehicle.getVehicleId();
+
+									sql.InsertVehicleData(clientID, make, model, carYear, licensePlate, residency, vehicleID);
+
+									frame.dispose();
+									JOptionPane.showMessageDialog(null, "Vehicle Successfully Registered", "Success!", JOptionPane.PLAIN_MESSAGE);
+							}
 					});
+
 					// notify client that job has not been accepted and does not save to file
 					decline_button.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
