@@ -122,4 +122,12 @@ public class SQLConnector {
 		return Jobs;
 	}
 
+	public String validateLogin(String username, String password) {
+		//if in the database then 
+		return "yes";
+		
+		//if not in the database then 
+		//return "no";
+		
+	}
 }

@@ -14,9 +14,10 @@ public class Vehicle implements Serializable {
 	private String vehicle_model;
 	private int year;	
     private String residency;
+    private String clientID;
 
 	
-	public Vehicle(String model, String make, int year, int vehicleId, String license_plate, String residency) {
+	public Vehicle(String clientID,String model, String make, int year, int vehicleId, String license_plate, String residency) {
 		
 		this.vehicle_model = model;
 		this.vehicle_make = make;
@@ -24,6 +25,7 @@ public class Vehicle implements Serializable {
 		this.vehicle_ID = vehicleId;
 		this.license_plate = license_plate;
 		this.residency = residency;
+		this.clientID = clientID;
 	}
 	
 	public int getVehicleId() {
@@ -32,6 +34,14 @@ public class Vehicle implements Serializable {
 	
 	public void setVehicleID(int vehicle_ID) {
 		this.vehicle_ID = vehicle_ID;
+	}
+	
+	public String getclientId() {
+		return this.clientID;
+	}
+	
+	public void setclientID(String clientID) {
+		this.clientID = clientID;
 	}
 	
 	

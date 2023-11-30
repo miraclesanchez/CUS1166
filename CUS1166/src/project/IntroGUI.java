@@ -249,6 +249,8 @@ public class IntroGUI extends JFrame{
 		    if(vehicleOwnerBut.isSelected()&&userType.equalsIgnoreCase("login")) {
 		    userType="VehicleOwner";
 			setVisible(false);
+			//VehicleOwnerView owner_view=new VehicleOwnerView();
+			
 			
 			loginFrame.setVisible(true); 
 			loginFrame.setTitle("Login: Vehicle Owner"); 
@@ -267,6 +269,8 @@ public class IntroGUI extends JFrame{
 		    	 if(taskOwnerBut.isSelected()&&userType.equalsIgnoreCase("login")) {
 		 			setVisible(false);
 		 			userType="JobOwner";
+//					JobOwnerView job_view = new JobOwnerView();
+					
 		 			loginFrame.setVisible(true);
 		 			loginFrame.setTitle("Login: Task Owner");
 		 		}else if(taskOwnerBut.isSelected()&&userType.equalsIgnoreCase("register")) {
@@ -321,6 +325,7 @@ public class IntroGUI extends JFrame{
 								JobOwnerView job_view = new JobOwnerView();
 							}
 							//ADD CODE FOR CHECKING THE DATABASE HERE
+							
 						}
 						
 					}
