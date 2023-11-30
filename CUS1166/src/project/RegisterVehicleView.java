@@ -35,8 +35,9 @@ public class RegisterVehicleView extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField first_name_input;
-	private JTextField last_name_input;
+//	private JTextField first_name_input;
+//	private JTextField last_name_input;
+	private JTextField clientID_input;
 	private JTextField make_input;
 	private JTextField plate_input;
 	private JTextField model_input;
@@ -70,17 +71,24 @@ public class RegisterVehicleView extends JFrame {
 		frame.pack();
 		frame.setVisible(true);
 		
-		JLabel fname_label = new JLabel("First Name");
-		fname_label.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		fname_label.setHorizontalAlignment(SwingConstants.CENTER);
-		fname_label.setBounds(10, 98, 151, 14);
-		contentPane.add(fname_label);
 		
-		JLabel lname_label = new JLabel("Last Name");
-		lname_label.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		lname_label.setHorizontalAlignment(SwingConstants.CENTER);
-		lname_label.setBounds(323, 98, 151, 14);
-		contentPane.add(lname_label);
+		JLabel clientID = new JLabel("Client ID: ");
+		clientID.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		clientID.setHorizontalAlignment(SwingConstants.CENTER);
+		clientID.setBounds(10, 98, 151, 14);
+		contentPane.add(clientID);
+		
+//		JLabel fname_label = new JLabel("First Name");
+//		fname_label.setFont(new Font("Tahoma", Font.PLAIN, 10));
+//		fname_label.setHorizontalAlignment(SwingConstants.CENTER);
+//		fname_label.setBounds(10, 98, 151, 14);
+//		contentPane.add(fname_label);
+//		
+//		JLabel lname_label = new JLabel("Last Name");
+//		lname_label.setFont(new Font("Tahoma", Font.PLAIN, 10));
+//		lname_label.setHorizontalAlignment(SwingConstants.CENTER);
+//		lname_label.setBounds(323, 98, 151, 14);
+//		contentPane.add(lname_label);
 		
 		JLabel model_label = new JLabel("Model");
 		model_label.setFont(new Font("Tahoma", Font.PLAIN, 10));
@@ -118,17 +126,23 @@ public class RegisterVehicleView extends JFrame {
 		description_label.setBounds(140, 165, 200, 14);
 		contentPane.add(description_label);
 		
-		first_name_input = new JTextField();
-		first_name_input.setHorizontalAlignment(SwingConstants.CENTER);
-		first_name_input.setBounds(10, 123, 151, 20);
-		contentPane.add(first_name_input);
-		first_name_input.setColumns(10);
+		clientID_input = new JTextField();
+		clientID_input.setHorizontalAlignment(SwingConstants.CENTER);
+		clientID_input.setBounds(10, 123, 151, 20);
+		contentPane.add(clientID_input);
+		clientID_input.setColumns(10);
 		
-		last_name_input = new JTextField();
-		last_name_input.setHorizontalAlignment(SwingConstants.CENTER);
-		last_name_input.setBounds(323, 123, 151, 20);
-		contentPane.add(last_name_input);
-		last_name_input.setColumns(10);
+//		first_name_input = new JTextField();
+//		first_name_input.setHorizontalAlignment(SwingConstants.CENTER);
+//		first_name_input.setBounds(10, 123, 151, 20);
+//		contentPane.add(first_name_input);
+//		first_name_input.setColumns(10);
+//		
+//		last_name_input = new JTextField();
+//		last_name_input.setHorizontalAlignment(SwingConstants.CENTER);
+//		last_name_input.setBounds(323, 123, 151, 20);
+//		contentPane.add(last_name_input);
+//		last_name_input.setColumns(10);
 		
 		JLabel register_label = new JLabel("Register Vehicle");
 		register_label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -203,8 +217,9 @@ public class RegisterVehicleView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//Only writes if all text fields contain an input
 				if (
-						(first_name_input.getText().equals("")) || 
-						(last_name_input.getText().equals("")) ||
+//						(first_name_input.getText().equals("")) || 
+//						(last_name_input.getText().equals("")) ||
+						clientID_input.getText().equals("")||
 						(make_input.getText().equals("")) ||
 						(model_input.getText().equals("")) ||
 						(year_input.getText().equals("")) ||
@@ -216,8 +231,9 @@ public class RegisterVehicleView extends JFrame {
 				}
 				//Clears text fields and displays message letting user know that they registered their vehicle
 				else {
-					String first_name = first_name_input.getText();
-					String last_name = last_name_input.getText();
+//					String first_name = first_name_input.getText();
+//					String last_name = last_name_input.getText();
+					String clientID = clientID_input.getText();
 					String vehicle_make = make_input.getText();
 					String vehicle_model = model_input.getText();
 					String year_text = year_input.getText();
@@ -226,13 +242,14 @@ public class RegisterVehicleView extends JFrame {
 					int vehicle_ID = Integer.parseInt(vehicle_ID_text);
 					String license_plate = plate_input.getText();
 					String residency_text = residency_input.getText();
-					Vehicle vehicle = new Vehicle(vehicle_model, vehicle_make, vehicle_year, vehicle_ID, license_plate, residency_text);
+					Vehicle vehicle = new Vehicle(clientID,vehicle_model, vehicle_make, vehicle_year, vehicle_ID, license_plate, residency_text);
 					//client connecting to server
-					connectVehicleOwner(vehicle, first_name, last_name);
+					connectVehicleOwner(vehicle, "hello", "hello", clientID);
 					
 					
-					first_name_input.setText("");
-					last_name_input.setText("");
+//					first_name_input.setText("");
+//					last_name_input.setText("");
+					clientID_input.setText("");
 					model_input.setText("");
 					make_input.setText("");
 					year_input.setText("YYYY");
@@ -248,7 +265,7 @@ public class RegisterVehicleView extends JFrame {
 		
 	}
 	
-	public static void connectVehicleOwner(Vehicle vehicle, String fname, String lname) {
+	public static void connectVehicleOwner(Vehicle vehicle, String fname, String lname,String clientID) {
 		String messageIn = "";
 		
 		try {

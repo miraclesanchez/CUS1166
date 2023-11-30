@@ -375,7 +375,7 @@ public class VehicleCloudController extends GuiManager implements Runnable {
 					// writes vehicle info to file and displays confirmation to user
 					acceptButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-									String clientID = Integer.toString(vehicle.getVehicleId());
+									String clientID = vehicle.getclientId();
 									String make = vehicle.getMake();
 									String model = vehicle.getModel();
 									int carYear = vehicle.getYear();

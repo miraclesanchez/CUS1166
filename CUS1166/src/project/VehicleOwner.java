@@ -16,8 +16,8 @@ public class VehicleOwner extends User {
 	}
 	
 
-	public static void registerVehicle (String model, String make, int year, int vehicleId, String license_plate, String residency){
-		vehicle = new Vehicle(model, make, year, vehicleId, license_plate, residency);
+	public static void registerVehicle (String clientID,String model, String make, int year, int vehicleId, String license_plate, String residency){
+		vehicle = new Vehicle(clientID,model, make, year, vehicleId, license_plate, residency);
 	}
 	
 	
