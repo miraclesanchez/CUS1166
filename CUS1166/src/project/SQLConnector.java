@@ -12,9 +12,9 @@ import java.util.ArrayList;
 public class SQLConnector {
 
 	
-	String url = "jdbc:mysql://localhost:3306/SWE";
-	String username = "softwareengineering";
-	String password = "CompSciRocks46$";
+	String url = "jdbc:mysql://localhost:3306/CUS1166";
+	String username = "root";
+    String password = "July262001@bl";
 	Connection conn;
 	Statement word;
 	ResultSet results;
@@ -126,12 +126,33 @@ public class SQLConnector {
 	}
 
 	public String validateLogin(String username, String password) {
-		//if in the database then 
-		return "yes";
+		String query = "SELECT * FROM USER WHERE clientID = ? AND clientPassword = ?";
+		ResultSet resultSet = null;
 		
-		//if not in the database then 
-		//return "no";
-		
+		try {
+			conn = DriverManager.getConnection(url, this.username, this.password);
+	        PreparedStatement preparedStatement = conn.prepareStatement(query);
+	        preparedStatement.setString(1, username);
+	        preparedStatement.setString(2, password);
+			
+			resultSet = preparedStatement.executeQuery();
+			
+			if (resultSet.next()) {
+				return "valid";
+			} else {
+				return "invalid";
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return "Error: Invalid clientId/password";
+		} finally {
+			try {
+				if (resultSet != null) resultSet.close();
+				if (conn != null) conn.close();
+			} catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		}
 	}
 	
 	public String findUser(String clientID) {

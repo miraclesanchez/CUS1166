@@ -7,6 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -327,14 +328,36 @@ public class IntroGUI extends JFrame{
 							
 							//this will set the client id in the sql so we know who we are workign with
 							//sql.setUser();
-							
-							
-							//ADD CODE FOR CHECKING THE DATABASE HERE
-							
 						}
-						
 					}
 				});
+				
+				loginButtonLFrame.addActionListener(new ActionListener() {
+				    public void actionPerformed(ActionEvent e) {
+				        String clientID = usernametxt.getText(); // Retrieve client ID from text field
+				        String userPassword = passtxt.getText(); // Retrieve password from text field
+
+				        String loginResult = sql.validateLogin(clientID, userPassword);
+				        if (loginResult.equals("valid")) {
+				            // Login success
+				            loginFrame.setVisible(false);
+				            if (userType.equalsIgnoreCase("VehicleOwner")) {
+				                VehicleOwnerView owner_view = new VehicleOwnerView();
+				            } else if (userType.equalsIgnoreCase("JobOwner")) {
+				                JobOwnerView job_view = new JobOwnerView();
+				            }
+				        } else {
+				            // Login failed or error. Popup error message. Stay on the login page
+				            String errorMessage = loginResult.equals("invalid") ? 
+				                                  "Invalid login credentials. Please try again." : 
+				                                  "Error logging in. Please try again later.";
+				            JOptionPane.showMessageDialog(loginFrame, errorMessage, "Login Failed", JOptionPane.ERROR_MESSAGE);
+				            loginFrame.setVisible(false);
+				            loginFrame.setVisible(true); 
+				        }
+				    }
+				});
+
 				
 				
 		
