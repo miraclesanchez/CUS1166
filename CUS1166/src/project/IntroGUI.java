@@ -147,7 +147,7 @@ public class IntroGUI extends JFrame{
 //		email.setBounds(26, 92, 64, 16);
 //		registerFrame.add(email);
 		
-		JLabel announcement = new JLabel("UserID must be 10 characters long");
+		JLabel announcement = new JLabel("UserID must be 5 characters long");
 		announcement.setBounds(26, 92, 400, 16);
 		registerFrame.add(announcement);
 		
@@ -317,13 +317,18 @@ public class IntroGUI extends JFrame{
 						if(loginFrame.isVisible()) {
 							loginFrame.setVisible(false);
 //							loginFrame.setVisible(true);
-						
+							
 							//opens the next frame based on userType
 							if(userType.equalsIgnoreCase("VehicleOwner")) {
 								VehicleOwnerView owner_view=new VehicleOwnerView();
 							}else if(userType.equalsIgnoreCase("JobOwner")) {
 								JobOwnerView job_view = new JobOwnerView();
 							}
+							
+							//this will set the client id in the sql so we know who we are workign with
+							//sql.setUser();
+							
+							
 							//ADD CODE FOR CHECKING THE DATABASE HERE
 							
 						}

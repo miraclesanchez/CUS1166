@@ -107,11 +107,15 @@ public class GuiManager{
 		
 		button.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseEntered(java.awt.event.MouseEvent evt) {
-				button.setBackground(Color.DARK_GRAY);
+				button.setBackground(Color.GRAY);
+				button.setOpaque(true);
+				button.setBorder(null);
 			}
 			
 			public void mouseExited(java.awt.event.MouseEvent evt) {
 				button.setBackground(Color.WHITE);
+				button.setBorder(null);
+				button.setOpaque(true);
 			}
 		});
 		panel.add(button);

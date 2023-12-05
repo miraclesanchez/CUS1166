@@ -18,8 +18,10 @@ public class SQLConnector {
 	Connection conn;
 	Statement word;
 	ResultSet results;
+	String userID;
 	
 	String allJobs = "select * from JobRegistry";
+	String findUser = "SELECT * FROM User WHERE clientID = ";
 	
 	//this method can be used for both Vehicle and Job Owner
 	//they have the same attributes
@@ -130,5 +132,33 @@ public class SQLConnector {
 		//if not in the database then 
 		//return "no";
 		
+	}
+	
+	public String findUser(String clientID) {
+		String firstName="";
+		try {
+			try {
+				Class.forName("com.mysql.cj.jdbc.Driver");
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+			conn = DriverManager.getConnection(url, username, password);
+			word = conn.createStatement();
+			results = word.executeQuery(findUser+"clientID");
+			
+			while(results.next()) {
+				firstName = results.getString("firstName");
+				
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println(firstName);
+		return firstName;
+	}
+	
+	public void setUser(String clientID) {
+		this.userID = clientID;
 	}
 }
