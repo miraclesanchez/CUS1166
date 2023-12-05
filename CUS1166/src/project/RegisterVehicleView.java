@@ -233,18 +233,25 @@ public class RegisterVehicleView extends JFrame {
 				else {
 //					String first_name = first_name_input.getText();
 //					String last_name = last_name_input.getText();
-					String clientID = clientID_input.getText();
-					String vehicle_make = make_input.getText();
-					String vehicle_model = model_input.getText();
-					String year_text = year_input.getText();
-					int vehicle_year = Integer.parseInt(year_text);
-					String vehicle_ID_text = vehicle_ID_input.getText();
-					int vehicle_ID = Integer.parseInt(vehicle_ID_text);
-					String license_plate = plate_input.getText();
-					String residency_text = residency_input.getText();
-					Vehicle vehicle = new Vehicle(clientID,vehicle_model, vehicle_make, vehicle_year, vehicle_ID, license_plate, residency_text);
-					//client connecting to server
-					connectVehicleOwner(vehicle, "hello", "hello", clientID);
+					try {
+						String clientID = clientID_input.getText();
+						String vehicle_make = make_input.getText();
+						String vehicle_model = model_input.getText();
+						String year_text = year_input.getText();
+						int vehicle_year = Integer.parseInt(year_text);
+						String vehicle_ID_text = vehicle_ID_input.getText();
+						int vehicle_ID = Integer.parseInt(vehicle_ID_text);
+						String license_plate = plate_input.getText();
+						String residency_text = residency_input.getText();
+						Vehicle vehicle = new Vehicle(clientID, vehicle_model, vehicle_make, vehicle_year, vehicle_ID, license_plate, residency_text);
+						//client connecting to server
+						connectVehicleOwner(vehicle, "hello", "hello", clientID);
+					}
+					catch(Exception e2) {
+						JOptionPane.showMessageDialog(null, "Invalid input. Try again.", "ERROR", JOptionPane.ERROR_MESSAGE);
+						e2.printStackTrace();
+					}
+					
 					
 					
 //					first_name_input.setText("");

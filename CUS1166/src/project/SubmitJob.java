@@ -85,30 +85,36 @@ public class SubmitJob extends GuiManager{
 				}
 				//Clears text fields and displays message letting user know that they registered their vehicle
 				else {
-					int jobID = Integer.parseInt(job_id.getText());
-					String jobName = name.getText();
-					int jobDur = Integer.parseInt(job_duration.getText());
-					
-					//changed the type of the deadline to Date. included a parser for it since it is originally in String form when taken from the GUI
-					String dateString = job_deadline.getText();
-					SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-					Date jobDead = null;
-					
 					try {
-						jobDead = dateFormat.parse(dateString);
-					}catch (ParseException e1) {
-						e1.printStackTrace();
+						int jobID = Integer.parseInt(job_id.getText());
+						String jobName = name.getText();
+						int jobDur = Integer.parseInt(job_duration.getText());
+						
+						//changed the type of the deadline to Date. included a parser for it since it is originally in String form when taken from the GUI
+						String dateString = job_deadline.getText();
+						SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+						Date jobDead = null;
+						
+						try {
+							jobDead = dateFormat.parse(dateString);
+						}catch (ParseException e1) {
+							e1.printStackTrace();
+						}
+						
+						String[] checkpoints = {};
+						Job newJob = new Job(jobID, jobName, jobDur, jobDead, checkpoints);
+						
+						connectJobOwner(newJob);
 					}
-					
-					String[] checkpoints = {};
-					Job newJob = new Job(jobID, jobName, jobDur, jobDead, checkpoints);
+					catch(Exception e3) {
+						JOptionPane.showMessageDialog(null, "Invalid input. Try again.", "ERROR", JOptionPane.ERROR_MESSAGE);
+						e3.printStackTrace();
+					}
 					
 					job_id.setText("");
 					name.setText("");
 					job_duration.setText("");
 					job_deadline.setText("");
-					
-					connectJobOwner(newJob);
 				}
 			}
 		});
