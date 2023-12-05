@@ -12,6 +12,8 @@ public class JobOwnerView extends GuiManager{
 	 * This program sets up the main user interface for job owners
 	*/
 
+	SQLConnector sql = new SQLConnector();
+	
 	public JobOwnerView() {
 		// variables to set the size of the user interface panels
 		int[] panel_dimensions = {10,10,10,10};
@@ -27,7 +29,9 @@ public class JobOwnerView extends GuiManager{
 		JLabel menu_label = CreateTextLabel("MENU", menu_image_path, 40.0f);
 		AddTextLabel(main_panel, menu_label, 200, 100);
 		
-		JLabel welcome_label = CreateTextLabel("Welcome, {user}!", "No image", 20.0f);
+		String firstName = sql.findUser(sql.userID);
+		
+		JLabel welcome_label = CreateTextLabel("Welcome, "+firstName+"!", "No image", 20.0f);
 		AddTextLabel(main_panel, welcome_label, 100, 100);
 		
 		//adding buttons

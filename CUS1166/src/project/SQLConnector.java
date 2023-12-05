@@ -125,13 +125,34 @@ public class SQLConnector {
 		return Jobs;
 	}
 
-	public String validateLogin(String username, String password) {
-		//if in the database then 
-		return "yes";
-		
-		//if not in the database then 
-		//return "no";
-		
+	public String validateLogin(String username, String password) { 
+		String query = "SELECT * FROM USER WHERE clientID = ? AND clientPassword = ?";
+		ResultSet resultSet = null;
+
+		try {
+			conn = DriverManager.getConnection(url, this.username, this.password);
+	        PreparedStatement preparedStatement = conn.prepareStatement(query);
+	        preparedStatement.setString(1, username);
+	        preparedStatement.setString(2, password);
+
+			resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next()) {
+				return "valid";
+			} else {
+				return "invalid";
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return "Error: Invalid clientId/password";
+		} finally {
+			try {
+				if (resultSet != null) resultSet.close();
+				if (conn != null) conn.close();
+			} catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		}
 	}
 	
 	public String findUser(String clientID) {
@@ -160,5 +181,7 @@ public class SQLConnector {
 	
 	public void setUser(String clientID) {
 		this.userID = clientID;
+		System.out.println(userID);
 	}
+	
 }
