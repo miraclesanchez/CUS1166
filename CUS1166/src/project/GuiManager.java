@@ -1,5 +1,6 @@
 package project;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -102,6 +103,17 @@ public class GuiManager{
 	// This method creates a button
 	public static JButton AddButton(JPanel panel, String text) {
 		JButton button = new JButton(text);
+		button.setBackground(Color.WHITE); // default color
+		
+		button.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseEntered(java.awt.event.MouseEvent evt) {
+				button.setBackground(Color.DARK_GRAY);
+			}
+			
+			public void mouseExited(java.awt.event.MouseEvent evt) {
+				button.setBackground(Color.WHITE);
+			}
+		});
 		panel.add(button);
 		return button;
 	}
