@@ -19,6 +19,9 @@ public class VehicleOwnerView extends GuiManager{
 	 * This program sets up the main user interface for vehicle owners
 	*/
 	
+	
+	SQLConnector sql = new SQLConnector();
+	
 	public VehicleOwnerView(){
 		int[] panel_dimensions = {10,10,10,10};
 		int[] panel_layout = {6,1};
@@ -33,7 +36,9 @@ public class VehicleOwnerView extends GuiManager{
 		JLabel menu_label = CreateTextLabel("MENU", menu_image_path, 40.0f);
 		AddTextLabel(main_panel, menu_label, 200, 100);
 		
-		JLabel welcome_label = CreateTextLabel("Welcome, {user}!", "No image", 20.0f);
+		String firstName = sql.findUser("12345");
+		
+		JLabel welcome_label = CreateTextLabel("Welcome, "+firstName+"!", "No image", 20.0f);
 		AddTextLabel(main_panel, welcome_label, 100, 100);
 		
 		//adding buttons
