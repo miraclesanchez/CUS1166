@@ -24,10 +24,9 @@ public class SQLConnector {
 	//this method can be used for both Vehicle and Job Owner
 	//they have the same attributes
 	public void InsertOwnerData(String owner_type, String clientID, String firstName, String lastName, String clientPassword) {
-		String insert_query = "insert into "
-				+ owner_type
-				+ " (clientID, firstName, lastName, clientPassword)" 
-				+ " values (?, ?, ?, ?)";
+		String insert_query = "insert into user"
+				+ " (clientID, firstName, lastName, clientPassword, clientType)" 
+				+ " values (?, ?, ?, ?, ?)";
 		
 		try {
 			conn = DriverManager.getConnection(url, username, password);
@@ -36,6 +35,8 @@ public class SQLConnector {
 			prepared_query.setString(2, firstName);
 			prepared_query.setString(3, lastName);
 			prepared_query.setString(4, clientPassword);
+			prepared_query.setString(5, owner_type);
+
 			
 			prepared_query.execute();
 			conn.close();
