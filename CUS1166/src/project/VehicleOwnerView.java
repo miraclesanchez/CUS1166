@@ -36,7 +36,7 @@ public class VehicleOwnerView extends GuiManager{
 		JLabel menu_label = CreateTextLabel("MENU", menu_image_path, 40.0f);
 		AddTextLabel(main_panel, menu_label, 200, 100);
 		
-		String firstName = sql.findUser("12345");
+		String firstName = sql.findUser(sql.userID);
 		
 		JLabel welcome_label = CreateTextLabel("Welcome, "+firstName+"!", "No image", 20.0f);
 		AddTextLabel(main_panel, welcome_label, 100, 100);
